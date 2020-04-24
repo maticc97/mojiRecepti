@@ -36,7 +36,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/imeRecepta" />
+        android:layout_alignParentRight="true"/>
 
     <Button
         android:id="@+id/button"
@@ -44,7 +44,8 @@
         android:layout_height="wrap_content"
         android:text="Dodaj sliko"
         android:textSize="12dp"
-        android:layout_toRightOf="@id/imeRecepta"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/dodajSliko"/>
 
     <TextView
@@ -60,36 +61,42 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:id="@+id/radio_gumbi"
         android:layout_below="@id/izberi_kategorijo"
         android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp">
 
         <RadioButton
             android:id="@+id/kategorijaPredjed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Predjed"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"/>
         <RadioButton
             android:id="@+id/kategorijaGlavna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Glavna jed"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"/>
         <RadioButton
             android:id="@+id/kategorijaSladica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sladica"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"/>
         <RadioButton
             android:id="@+id/kategorijaOstalo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ostalo"
             android:layout_marginRight="10dp"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"/>
   </RadioGroup>
     <TextView
         android:id="@+id/sestavine_text"
@@ -121,19 +128,19 @@
         android:padding="10dp"
         android:maxLength="30"/>
 
-    <ListView
-        android:id="@+id/listView_lv"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/sestavina_add"
-        android:background="@drawable/back"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:scrollbarSize="10dp"
-        android:layout_marginBottom="20dp"
-        />
+     <ListView
+         android:id="@+id/listView_lv"
+         android:layout_width="match_parent"
+         android:layout_height="100dp"
+         android:layout_below="@id/sestavina_add"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="-2dp"
+         android:layout_marginRight="10dp"
+         android:layout_marginBottom="20dp"
+         android:background="@drawable/back"
+         android:scrollbarSize="10dp" />
 
-    <TextView
+     <TextView
         android:id="@+id/postopek_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
