@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = myDb.viewData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
                 data.add(cursor.getString(1));
