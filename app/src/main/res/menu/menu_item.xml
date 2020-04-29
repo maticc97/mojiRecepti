@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ <item
+     android:id="@+id/recepti"
+     android:title="Moji recepti"
+     />
+    <item
+        android:id="@+id/glavne_jedi"
+        android:title="Glavne jedi"
+        />
+    <item
+        android:id="@+id/sladice"
+        android:title="Sladice"
+        />
+</menu>
