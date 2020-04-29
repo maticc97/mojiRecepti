@@ -1,12 +1,21 @@
 package si.uni.mojirecepti;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,10 +23,12 @@ import android.widget.TextView;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "AddActivity";
     DatabaseHelper myDb;
@@ -27,13 +38,33 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvItems;
     private ArrayList<String> data = new ArrayList<String>();
 
+    //drawer layout
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //baza - kliče konstruktor tega classa, kjer kreiramo bazo in tabelo
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //nastavbimo meni
+        drawerLayout= findViewById(R.id.drawer);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.navigationView);
+
+        ActionBar actionBar = getSupportActionBar();
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawerOpen, R.string.drawerClose);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
         myDb = new DatabaseHelper(this);
 
         lvItems = (ListView) findViewById(R.id.lvItems);
@@ -53,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
             itemsAdapter = new MyListAdapter(this, R.layout.list_item, data);
             lvItems.setAdapter(itemsAdapter);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 
     private class MyListAdapter extends ArrayAdapter<String> {
