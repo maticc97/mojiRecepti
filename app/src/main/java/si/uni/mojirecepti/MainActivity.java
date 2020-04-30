@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
-    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,11 +58,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ActionBar actionBar = getSupportActionBar();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawerOpen, R.string.drawerClose);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         myDb = new DatabaseHelper(this);
 
@@ -88,6 +88,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        System.out.println(item.getItemId());
+        switch (item.getItemId()){
+            case R.id.predjed_menuItem:
+                Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, addRecipeActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.glavne_jedi_MenuItem:
+                Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.sladice_menuItem:
+                Toast.makeText(MainActivity.this, "Preklopi na stran sladice", Toast.LENGTH_SHORT).show();
+                break;
+        }
         return false;
     }
 

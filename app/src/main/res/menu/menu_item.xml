@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
- <item
-     android:id="@+id/recepti"
-     android:title="Moji recepti"
-     />
     <item
-        android:id="@+id/glavne_jedi"
+        android:id="@+id/vsiRecepti_menuItem"
+        android:title="Moji recepti"
+        />
+    <item
+        android:id="@+id/predjed_menuItem"
+        android:title="Predjedi"
+        />
+    <item
+        android:id="@+id/glavne_jedi_MenuItem"
         android:title="Glavne jedi"
         />
     <item
-        android:id="@+id/sladice"
+        android:id="@+id/sladice_menuItem"
         android:title="Sladice"
         />
 </menu>
