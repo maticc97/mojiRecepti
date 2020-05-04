@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void addData() {
-        Cursor cursor = myDb.viewData();
+        Cursor cursor = myDb.recipeTitles();
 
         if (cursor.getCount() == 0) {
             Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private class MyListAdapter extends ArrayAdapter<String> {
+        Cursor cursor = myDb.recipeTitles();
         private int layout;
         private List<String> mObjects;
         private MyListAdapter(Context context, int resource, List<String> objects) {
@@ -128,11 +130,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                viewHolder.moreButton = (Button) convertView.findViewById(R.id.show_more_btn);
+                viewHolder.deleteButton = (Button) convertView.findViewById(R.id.delete_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
+            mainViewholder.moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cursor.moveToPosition(position);
+                    final String id = cursor.getString(0);
+                    Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+                    intent.putExtra("ID", id);
+                    startActivity(intent);
+                }
+            });
+            mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     data.remove(position);
@@ -147,7 +160,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static class ViewHolder {
         TextView title;
-        Button button;
+        Button moreButton;
+        Button deleteButton;
     }
 
     public void onButtonShowPopupWindowClick(View view) {

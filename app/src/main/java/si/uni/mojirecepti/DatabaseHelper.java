@@ -57,9 +57,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Cursor viewData() {
+    public Cursor recipeTitles() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select * from "+TABELA;
+        String query = "Select ID, IME from "+TABELA;
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor;
+    }
+
+    public Cursor getRecipe(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "Select * from "+TABELA+" where ID = "+id;
         Cursor cursor = db.rawQuery(query, null);
 
         return cursor;
