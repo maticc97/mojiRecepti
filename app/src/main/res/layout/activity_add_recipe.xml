@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/radio_gumbi"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
             android:textStyle="bold"
             android:textSize="17dp"
             android:text="Sestavine"/>
@@ -126,7 +126,9 @@
             android:layout_below="@id/sestavine_text"
             android:hint="Vnesi sestavino ter količino"
             android:textSize="15sp"
+
             android:padding="10dp"
+            android:layout_marginLeft="10dp"
             android:maxLength="50"/>
 
         <ListView
@@ -167,7 +169,7 @@
             />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/preklici_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prekliči"

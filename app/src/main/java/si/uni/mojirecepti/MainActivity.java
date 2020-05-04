@@ -86,10 +86,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+
+    //to je sam primer kako daš funkcije na gumb v meniju, samo vstaviš notri v case - vsi casi so dodani
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         System.out.println(item.getItemId());
         switch (item.getItemId()){
+            case R.id.vsiRecepti_menuItem:
+                break;
             case R.id.predjed_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, addRecipeActivity.class);

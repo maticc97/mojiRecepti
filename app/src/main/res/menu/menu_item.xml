@@ -3,6 +3,7 @@
     <item
         android:id="@+id/vsiRecepti_menuItem"
         android:title="Moji recepti"
+
         />
     <item
         android:id="@+id/predjed_menuItem"

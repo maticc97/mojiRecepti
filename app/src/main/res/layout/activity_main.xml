@@ -47,6 +47,7 @@
         app:menu="@menu/menu_item"
         app:headerLayout="@layout/header"
         android:layout_gravity="start"
+        app:itemBackground="@drawable/menu_seperator"
         />
 
 

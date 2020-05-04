@@ -28,6 +28,7 @@ public class addRecipeActivity extends AppCompatActivity {
 
     EditText napisiSestavino;
     Button dodaj;
+    Button preklici;
     ListView lv;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
@@ -52,6 +53,7 @@ public class addRecipeActivity extends AppCompatActivity {
         dodaj = findViewById(R.id.btnSestavine);
         lv = findViewById(R.id.listView_lv);
 
+        preklici = findViewById(R.id.preklici_btn);
 
         arrayList = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(addRecipeActivity.this, android.R.layout.simple_list_item_1, arrayList);
@@ -59,6 +61,7 @@ public class addRecipeActivity extends AppCompatActivity {
         dodajSestavino();
         AddData();
         GetRadioButtonData();
+        preklici();
     }
 
     public void AddData(){
@@ -72,12 +75,12 @@ public class addRecipeActivity extends AppCompatActivity {
                                 kategorija,arrayList,
                                 opisPostopka.getText().toString());
                         if(isInserted){
-                            Toast.makeText(addRecipeActivity.this, "Recept uspešno dodan", Toast.LENGTH_LONG).show();
+                            Toast.makeText(addRecipeActivity.this, "Recept uspešno dodan", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(addRecipeActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(addRecipeActivity.this, "Prosimo vpiši vse podatke", Toast.LENGTH_LONG).show();
+                            Toast.makeText(addRecipeActivity.this, "Prosimo vpiši vse podatke", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -126,4 +129,16 @@ public class addRecipeActivity extends AppCompatActivity {
             }
         });
     }
+
+   public void preklici(){
+        preklici.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(addRecipeActivity.this, "Dodajanje recepta preklicano", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(addRecipeActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+   }
 }
+
