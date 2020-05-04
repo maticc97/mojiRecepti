@@ -69,11 +69,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myDb = new DatabaseHelper(this);
 
         lvItems = (ListView) findViewById(R.id.lvItems);
-        addData();
+        addData("all");
     }
 
-    private void addData() {
-        Cursor cursor = myDb.recipeTitles();
+    private void addData(String category) {
+        data.removeAll(data);
+        Cursor cursor = myDb.recipeTitles(category);
 
         if (cursor.getCount() == 0) {
             Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             itemsAdapter = new MyListAdapter(this, R.layout.list_item, data);
+            ((MyListAdapter) itemsAdapter).setCursor(myDb.recipeTitles(category));
             lvItems.setAdapter(itemsAdapter);
         }
     }
@@ -94,32 +96,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println(item.getItemId());
         switch (item.getItemId()){
             case R.id.vsiRecepti_menuItem:
+                addData("all");
+                drawerLayout.closeDrawers();
                 break;
             case R.id.predjed_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, addRecipeActivity.class);
-                startActivity(intent);
+                addData("Predjed");
+                drawerLayout.closeDrawers();
                 break;
 
             case R.id.glavne_jedi_MenuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
+                addData("Glavna jed");
+                drawerLayout.closeDrawers();
                 break;
 
             case R.id.sladice_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran sladice", Toast.LENGTH_SHORT).show();
+                addData("Sladica");
+                drawerLayout.closeDrawers();
                 break;
         }
         return false;
     }
 
     private class MyListAdapter extends ArrayAdapter<String> {
-        Cursor cursor = myDb.recipeTitles();
+        Cursor cursor = myDb.recipeTitles("all");
         private int layout;
         private List<String> mObjects;
         private MyListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
+        }
+
+        public void setCursor(Cursor cursor) {
+            this.cursor = cursor;
         }
 
         @Override
