@@ -73,10 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void addData(String category) {
-        data.removeAll(data);
         Cursor cursor = myDb.recipeTitles(category);
 
-        if (cursor.getCount() == 0) {
+        if (cursor.getCount() < 0) {
             Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
@@ -96,23 +95,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println(item.getItemId());
         switch (item.getItemId()){
             case R.id.vsiRecepti_menuItem:
+                data.removeAll(data);
                 addData("all");
                 drawerLayout.closeDrawers();
                 break;
             case R.id.predjed_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
+                data.removeAll(data);
                 addData("Predjed");
                 drawerLayout.closeDrawers();
                 break;
 
             case R.id.glavne_jedi_MenuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
+                data.removeAll(data);
                 addData("Glavna jed");
                 drawerLayout.closeDrawers();
                 break;
 
             case R.id.sladice_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran sladice", Toast.LENGTH_SHORT).show();
+                data.removeAll(data);
                 addData("Sladica");
                 drawerLayout.closeDrawers();
                 break;
