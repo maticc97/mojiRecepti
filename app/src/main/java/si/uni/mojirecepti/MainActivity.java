@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Context;
@@ -145,8 +146,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.moreButton = (Button) convertView.findViewById(R.id.show_more_btn);
-                viewHolder.deleteButton = (Button) convertView.findViewById(R.id.delete_btn);
+                viewHolder.moreButton = (ImageButton) convertView.findViewById(R.id.show_more_btn);
+                viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.delete_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
@@ -175,8 +176,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static class ViewHolder {
         TextView title;
-        Button moreButton;
-        Button deleteButton;
+        ImageButton moreButton;
+        ImageButton deleteButton;
     }
 
     public void onButtonShowPopupWindowClick(View view) {

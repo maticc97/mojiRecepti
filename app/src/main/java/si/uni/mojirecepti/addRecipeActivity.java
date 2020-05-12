@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,12 +24,12 @@ public class addRecipeActivity extends AppCompatActivity {
 
     //TO DO
     String kategorija;
-    Button btnShrani;
+    ImageButton btnShrani;
     DatabaseHelper myDb;
 
     EditText napisiSestavino;
-    Button dodaj;
-    Button preklici;
+    ImageButton dodaj;
+    ImageButton preklici;
     ListView lv;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;

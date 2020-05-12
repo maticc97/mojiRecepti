@@ -10,23 +10,29 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:layout_marginTop="21dp"
         android:layout_toStartOf="@+id/show_more_btn"
         android:layout_toLeftOf="@+id/show_more_btn"
         android:text="New item" />
 
-    <Button
+    <ImageButton
         android:id="@+id/show_more_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/delete_btn"
+        style="@style/btn"
+        android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/delete_btn"
-        android:text="Pokazi recept"/>
+        android:layout_toLeftOf="@+id/delete_btn"
+        android:src="@drawable/ic_more"
+        android:background="@drawable/green_background"
+        />
 
-    <Button
+    <ImageButton
         android:id="@+id/delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/btn"
         android:layout_alignParentRight="true"
-        android:text="Delete"/>
+        android:src="@drawable/ic_delete"
+        android:background="@drawable/red_background"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
