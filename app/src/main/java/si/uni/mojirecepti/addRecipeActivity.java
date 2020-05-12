@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,12 +24,12 @@ public class addRecipeActivity extends AppCompatActivity {
 
     //TO DO
     String kategorija;
-    Button btnShrani;
+    ImageButton btnShrani;
     DatabaseHelper myDb;
 
     EditText napisiSestavino;
-    Button dodaj;
-    Button preklici;
+    ImageButton dodaj;
+    ImageButton preklici;
     ListView lv;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
@@ -64,6 +65,12 @@ public class addRecipeActivity extends AppCompatActivity {
         preklici();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     public void AddData(){
         imeRecepta.getText().toString();
         opisPostopka.getText().toString();
@@ -78,6 +85,7 @@ public class addRecipeActivity extends AppCompatActivity {
                             Toast.makeText(addRecipeActivity.this, "Recept uspešno dodan", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(addRecipeActivity.this, MainActivity.class);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                         else{
                             Toast.makeText(addRecipeActivity.this, "Prosimo vpiši vse podatke", Toast.LENGTH_SHORT).show();
@@ -137,6 +145,7 @@ public class addRecipeActivity extends AppCompatActivity {
                 Toast.makeText(addRecipeActivity.this, "Dodajanje recepta preklicano", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(addRecipeActivity.this, MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
    }

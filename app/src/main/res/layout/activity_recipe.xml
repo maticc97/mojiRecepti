@@ -66,19 +66,19 @@
         android:text="TextView"
         android:layout_below="@id/processTitle"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Uredi"
+        style="@style/btn"
+        android:background="@drawable/orange_background"
+        android:src="@drawable/ic_edit"
         android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nazaj"
+        style="@style/btn"
+        android:background="@drawable/orange_background"
+        android:src="@drawable/ic_back"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

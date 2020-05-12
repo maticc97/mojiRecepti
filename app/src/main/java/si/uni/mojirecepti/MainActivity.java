@@ -3,13 +3,16 @@ package si.uni.mojirecepti;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Context;
@@ -45,12 +49,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
+    AlertDialog.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //baza - kliče konstruktor tega classa, kjer kreiramo bazo in tabelo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        builder = new AlertDialog.Builder(this);
 
         //nastavbimo meni
         drawerLayout= findViewById(R.id.drawer);
@@ -66,16 +74,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+
         myDb = new DatabaseHelper(this);
 
         lvItems = (ListView) findViewById(R.id.lvItems);
-        addData();
+        addData("all");
     }
 
-    private void addData() {
-        Cursor cursor = myDb.recipeTitles();
+    private void addData(String category) {
+        Cursor cursor = myDb.recipeTitles(category);
 
-        if (cursor.getCount() == 0) {
+        if (cursor.getCount() < 0) {
             Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
@@ -83,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             itemsAdapter = new MyListAdapter(this, R.layout.list_item, data);
+            ((MyListAdapter) itemsAdapter).setCursor(myDb.recipeTitles(category));
             lvItems.setAdapter(itemsAdapter);
         }
     }
@@ -94,32 +105,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //System.out.println(item.getItemId());
         switch (item.getItemId()){
             case R.id.vsiRecepti_menuItem:
+                data.removeAll(data);
+                addData("all");
+                drawerLayout.closeDrawers();
                 break;
             case R.id.predjed_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, addRecipeActivity.class);
-                startActivity(intent);
+                data.removeAll(data);
+                addData("Predjed");
+                drawerLayout.closeDrawers();
                 break;
 
             case R.id.glavne_jedi_MenuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
+                data.removeAll(data);
+                addData("Glavna jed");
+                drawerLayout.closeDrawers();
                 break;
 
             case R.id.sladice_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran sladice", Toast.LENGTH_SHORT).show();
+                data.removeAll(data);
+                addData("Sladica");
+                drawerLayout.closeDrawers();
                 break;
         }
         return false;
     }
 
     private class MyListAdapter extends ArrayAdapter<String> {
-        Cursor cursor = myDb.recipeTitles();
+        //cursor
+        Cursor cursor = myDb.recipeTitles("all");
         private int layout;
         private List<String> mObjects;
         private MyListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
+        }
+
+        public void setCursor(Cursor cursor) {
+            this.cursor = cursor;
         }
 
         @Override
@@ -130,8 +156,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.moreButton = (Button) convertView.findViewById(R.id.show_more_btn);
-                viewHolder.deleteButton = (Button) convertView.findViewById(R.id.delete_btn);
+                viewHolder.moreButton = (ImageButton) convertView.findViewById(R.id.show_more_btn);
+                viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.delete_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
@@ -143,13 +169,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
                     intent.putExtra("ID", id);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    data.remove(position);
-                    itemsAdapter.notifyDataSetChanged();
+                    builder.setTitle("OPOZORILO!");
+                    builder.setMessage("Ali ste prepričani, da želite izbrisati recept?");
+
+                    builder.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            cursor.moveToPosition(position);
+                            final String id = cursor.getString(0);
+                            myDb.deleteRecipe(id);
+                            data.remove(position);
+                            itemsAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    builder.setNegativeButton("NE", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             });
             mainViewholder.title.setText(getItem(position));
@@ -160,13 +210,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static class ViewHolder {
         TextView title;
-        Button moreButton;
-        Button deleteButton;
+        ImageButton moreButton;
+        ImageButton deleteButton;
     }
 
     public void onButtonShowPopupWindowClick(View view) {
         Intent intent = new Intent(this, addRecipeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 }

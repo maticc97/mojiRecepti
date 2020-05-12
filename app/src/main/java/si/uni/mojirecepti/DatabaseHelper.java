@@ -57,9 +57,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Cursor recipeTitles() {
+    public Cursor recipeTitles(String category) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select ID, IME from "+TABELA;
+        String query = "Select ID, IME from " + TABELA;
+
+        if (!category.equals("all")) {
+            query = "Select ID, IME from "+TABELA+" where KATEGORIJA = '"+category+"'";
+        }
+
         Cursor cursor = db.rawQuery(query, null);
 
         return cursor;
@@ -71,5 +76,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         return cursor;
+    }
+
+    public void deleteRecipe(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.delete(TABELA, "ID = ?", new String[] {id});
     }
 }
