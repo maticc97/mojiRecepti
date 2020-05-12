@@ -83,16 +83,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void addData(String category) {
+        //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
         Cursor cursor = myDb.recipeTitles(category);
 
         if (cursor.getCount() < 0) {
             Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
         } else {
+            //se premikamo po en kazalec naprej
             while (cursor.moveToNext()) {
+                //v seznam vseh jedi (data) se doda ime jedi -> stolpec 1 je ime, stolpec 0 je id
                 data.add(cursor.getString(1));
             }
 
             itemsAdapter = new MyListAdapter(this, R.layout.list_item, data);
+            //set cursor zato, da je seznam jedi v myListAdapter pravilen, odvisen od kategorije
             ((MyListAdapter) itemsAdapter).setCursor(myDb.recipeTitles(category));
             lvItems.setAdapter(itemsAdapter);
         }
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private class MyListAdapter extends ArrayAdapter<String> {
-        //cursor
+        //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
         Cursor cursor = myDb.recipeTitles("all");
         private int layout;
         private List<String> mObjects;
@@ -144,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             layout = resource;
         }
 
+        //če je druga kategorija, se je seznam posodobil da je pravilen
         public void setCursor(Cursor cursor) {
             this.cursor = cursor;
         }
@@ -164,8 +169,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mainViewholder.moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //cursor premaknemo na kliknjeni element seznama, stolpec 0 je id kliknjene jedi
                     cursor.moveToPosition(position);
                     final String id = cursor.getString(0);
+                    //odpremo novo aktivnost, zraven dodamo parameter ID
                     Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
                     intent.putExtra("ID", id);
                     startActivity(intent);
