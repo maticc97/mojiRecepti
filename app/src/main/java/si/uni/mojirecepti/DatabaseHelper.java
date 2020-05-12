@@ -77,4 +77,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return cursor;
     }
+
+    public void deleteRecipe(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.delete(TABELA, "ID = ?", new String[] {id});
+    }
 }

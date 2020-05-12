@@ -3,11 +3,13 @@ package si.uni.mojirecepti;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -46,12 +48,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
+    AlertDialog.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //baza - kliče konstruktor tega classa, kjer kreiramo bazo in tabelo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        builder = new AlertDialog.Builder(this);
 
         //nastavbimo meni
         drawerLayout= findViewById(R.id.drawer);
@@ -165,8 +171,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    data.remove(position);
-                    itemsAdapter.notifyDataSetChanged();
+                    builder.setTitle("OPOZORILO!");
+                    builder.setMessage("Ali ste prepričani, da želite izbrisati recept?");
+
+                    builder.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            cursor.moveToPosition(position);
+                            final String id = cursor.getString(0);
+                            myDb.deleteRecipe(id);
+                            data.remove(position);
+                            itemsAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    builder.setNegativeButton("NE", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             });
             mainViewholder.title.setText(getItem(position));
