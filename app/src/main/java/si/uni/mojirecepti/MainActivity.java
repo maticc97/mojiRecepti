@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
                     intent.putExtra("ID", id);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onButtonShowPopupWindowClick(View view) {
         Intent intent = new Intent(this, addRecipeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 }

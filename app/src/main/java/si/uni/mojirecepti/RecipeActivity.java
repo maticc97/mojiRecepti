@@ -46,6 +46,12 @@ public class RecipeActivity extends AppCompatActivity {
         recipeProcess.setText(process);
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     private void getData() {
         Cursor cursor = myDb.getRecipe(id);
         cursor.moveToFirst();
@@ -63,5 +69,6 @@ public class RecipeActivity extends AppCompatActivity {
     public void onButtonBackClick(View view) {
         Intent intent = new Intent(RecipeActivity.this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

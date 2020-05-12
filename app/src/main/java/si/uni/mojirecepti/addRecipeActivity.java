@@ -65,6 +65,12 @@ public class addRecipeActivity extends AppCompatActivity {
         preklici();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     public void AddData(){
         imeRecepta.getText().toString();
         opisPostopka.getText().toString();
@@ -79,6 +85,7 @@ public class addRecipeActivity extends AppCompatActivity {
                             Toast.makeText(addRecipeActivity.this, "Recept uspešno dodan", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(addRecipeActivity.this, MainActivity.class);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                         else{
                             Toast.makeText(addRecipeActivity.this, "Prosimo vpiši vse podatke", Toast.LENGTH_SHORT).show();
@@ -138,6 +145,7 @@ public class addRecipeActivity extends AppCompatActivity {
                 Toast.makeText(addRecipeActivity.this, "Dodajanje recepta preklicano", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(addRecipeActivity.this, MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
    }
