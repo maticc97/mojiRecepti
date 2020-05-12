@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+
         myDb = new DatabaseHelper(this);
 
         lvItems = (ListView) findViewById(R.id.lvItems);
@@ -131,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private class MyListAdapter extends ArrayAdapter<String> {
+        //cursor
         Cursor cursor = myDb.recipeTitles("all");
         private int layout;
         private List<String> mObjects;
