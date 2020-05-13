@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".addRecipeActivity"
+    tools:context=".EditRecepie"
     tools:openDrawer="start"
     android:id="@+id/drawer2">
     <RelativeLayout
@@ -184,7 +184,8 @@
             android:background="@drawable/red_background"
             android:src="@drawable/ic_delete"
             android:layout_below="@id/postopek_polje"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:onClick="onCancelButtonClick"/>
 
         <ImageButton
             android:layout_toLeftOf="@id/preklici_btn"
@@ -197,7 +198,8 @@
             android:background="@drawable/green_background"
             android:layout_toStartOf="@id/preklici_btn"
             android:layout_marginEnd="30dp"
-            android:layout_marginStart="10dp" />
+            android:layout_marginStart="10dp"
+            android:onClick="onSaveButtonclick"/>
 
     </RelativeLayout>
     </ScrollView>

@@ -107,7 +107,7 @@ public class EditRecepie extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onCancelButtonClick(){
+    public void onCancelButtonClick(View view){
         Toast.makeText(EditRecepie.this, "Preklicano", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(EditRecepie.this, MainActivity.class);
         startActivity(intent);
