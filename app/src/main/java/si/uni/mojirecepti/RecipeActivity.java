@@ -80,4 +80,15 @@ public class RecipeActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
+    public void onEditButtonClick(View view){
+        Intent intent = new Intent(RecipeActivity.this, EditRecepie.class);
+        intent.putExtra("id",id);
+        intent.putExtra("imeRecepta", title);
+        intent.putExtra("kategorija",category);
+        intent.putExtra("sestavine", ingredients);
+        intent.putExtra("postopek", process);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }
