@@ -66,6 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //key, vsebina
         contentValues.put(COL_2, imeRecepta);
+        System.out.println(kategorija);
         contentValues.put(COL_3, kategorija);
         //contentValues.put(COL_4, String.valueOf(sestavine));
         contentValues.put(COL_5, postopek);

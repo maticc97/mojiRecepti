@@ -39,6 +39,8 @@ public class EditRecepie extends AppCompatActivity {
 
         novRecept = (EditText)findViewById(R.id.imeRecepta);
         save = findViewById(R.id.shrani);
+        kategorija=dobiKategorijo;
+
         //get radiobuttons
         kategorije = findViewById(R.id.radio_gumbi);
         predjed = findViewById(R.id.kategorijaPredjed);
