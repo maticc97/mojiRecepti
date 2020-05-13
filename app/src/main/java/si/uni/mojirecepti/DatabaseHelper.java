@@ -42,6 +42,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         //key, vsebina
+
+        if(ime.equals("") || kategorija==null || sestavine==null || postopek.equals("")){
+            return false;
+        }
         contentValues.put(COL_2, ime);
         contentValues.put(COL_3, kategorija);
         contentValues.put(COL_4, String.valueOf(sestavine));

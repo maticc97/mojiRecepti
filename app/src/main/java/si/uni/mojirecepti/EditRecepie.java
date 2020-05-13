@@ -51,6 +51,7 @@ public class EditRecepie extends AppCompatActivity {
 
         novRecept.setText(dobiIme);
         //set checked
+        System.out.println(id + dobiPostopek + dobiKategorijo + dobiIme);
 
         switch(dobiKategorijo){
             case "Predjed":
@@ -60,9 +61,11 @@ public class EditRecepie extends AppCompatActivity {
             case "Glavna jed":
                 glavna_jed.setChecked(true);
                 break;
+
             case "Sladica":
                 sladica.setChecked(true);
                 break;
+
             case "Ostalo":
                 ostalo.setChecked(true);
                 break;
@@ -76,7 +79,6 @@ public class EditRecepie extends AppCompatActivity {
 
 
             @Override
-
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.kategorijaPredjed:
