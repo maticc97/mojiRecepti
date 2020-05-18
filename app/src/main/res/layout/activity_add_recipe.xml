@@ -145,7 +145,7 @@
         <ListView
             android:id="@+id/listView_lv"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_below="@id/btnSestavine"
             android:background="@drawable/back"
             android:layout_marginRight="10dp"
