@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +31,9 @@ public class addRecipeActivity extends AppCompatActivity {
 
     EditText napisiSestavino;
     ImageButton dodaj;
-    ImageButton preklici;
+    ImageButton preklici, delete;
     ListView lv;
+    Layout a;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
 
@@ -54,16 +57,23 @@ public class addRecipeActivity extends AppCompatActivity {
         dodaj = findViewById(R.id.btnSestavine);
         lv = findViewById(R.id.listView_lv);
 
+        delete = findViewById(R.id.odstranisest);
         preklici = findViewById(R.id.preklici_btn);
 
+
+
         arrayList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(addRecipeActivity.this, android.R.layout.simple_list_item_1, arrayList);
+        adapter = new ArrayAdapter<String>(addRecipeActivity.this, R.layout.list_item_layout, R.id.lst_txt, arrayList);
         lv.setAdapter(adapter);
         dodajSestavino();
         AddData();
         GetRadioButtonData();
         preklici();
+
     }
+
+
+
 
     @Override
     public void finish() {
@@ -149,5 +159,7 @@ public class addRecipeActivity extends AppCompatActivity {
             }
         });
    }
+
+
 }
 
