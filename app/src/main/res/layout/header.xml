@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:orientation="vertical"
+    android:id="@+id/testing_matic"
     android:background="@color/header"
     >
 

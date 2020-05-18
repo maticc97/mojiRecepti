@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Cursor cursor = myDb.recipeTitles("all");
         private int layout;
         private List<String> mObjects;
-        private MyListAdapter(Context context, int resource, List<String> objects) {
+        MyListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;

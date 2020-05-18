@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ListView;
-
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -45,6 +42,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         //key, vsebina
+
+        if(ime.equals("") || kategorija==null || sestavine==null || postopek.equals("")){
+            return false;
+        }
         contentValues.put(COL_2, ime);
         contentValues.put(COL_3, kategorija);
         contentValues.put(COL_4, String.valueOf(sestavine));
@@ -55,6 +56,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+
+    //Item is a class representing any item with id, name and description
+    public void updateItem(String id, String imeRecepta, String kategorija, String postopek) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        //key, vsebina
+        contentValues.put(COL_2, imeRecepta);
+        System.out.println(kategorija);
+        contentValues.put(COL_3, kategorija);
+        //contentValues.put(COL_4, String.valueOf(sestavine));
+        contentValues.put(COL_5, postopek);
+        //vrne -1 če ni okej
+
+        db.update(TABELA, contentValues, "ID = ?",new String[] {id});
+
     }
 
     public Cursor recipeTitles(String category) {
@@ -81,5 +100,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteRecipe(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(TABELA, "ID = ?", new String[] {id});
+
     }
 }
