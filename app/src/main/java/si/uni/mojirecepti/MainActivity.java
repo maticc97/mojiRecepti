@@ -7,6 +7,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -43,8 +45,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ListView lvItems;
     private ArrayList<String> data = new ArrayList<String>();
 
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
     //drawer layout
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
@@ -61,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder = new AlertDialog.Builder(this);
 
         //nastavbimo meni
-        drawerLayout= findViewById(R.id.drawer);
+        drawerLayout= findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.nav_view);
 
         ActionBar actionBar = getSupportActionBar();
         setSupportActionBar(toolbar);
@@ -80,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         lvItems = (ListView) findViewById(R.id.lvItems);
         addData("all");
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
     }
 
     private void addData(String category) {
@@ -109,9 +117,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //System.out.println(item.getItemId());
         switch (item.getItemId()){
             case R.id.vsiRecepti_menuItem:
-                data.removeAll(data);
+                /**data.removeAll(data);
                 addData("all");
-                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();*/
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new addRecept_fragment()).commit();
                 break;
             case R.id.predjed_menuItem:
                 Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
