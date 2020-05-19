@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
@@ -23,15 +26,31 @@ public class Recipe_fragment extends Fragment {
     private String category;
     private String ingredients;
     private String process;
+    private ImageButton edit;
     private ArrayList<String> data = new ArrayList<String>();
+
+    private TextView textView;
+
+    editRecept_fragment editRecept_fragment;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.activity_recipe,container,false);
+
+
 
         myDb = new DatabaseHelper(getContext());
         if (((MainActivity)getActivity()) != null) {
             id = ((MainActivity) getActivity()).currentRecipeId;
         }
+
+        //find edit button
+        edit = view.findViewById(R.id.editButton);
+
+
+        //ni mi cist jasno zakaj mamo tole on create, je pa to prehod iz fragmenta na fragment
+
 
         ListView lvItems = view.findViewById(R.id.ingredientsList);
 
@@ -48,6 +67,14 @@ public class Recipe_fragment extends Fragment {
         recipeTitle.setText(title);
         recipeCategory.setText(category);
         recipeProcess.setText(process);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToEdit();
+            }
+        });
+
+
         return view;
     }
 
@@ -69,5 +96,22 @@ public class Recipe_fragment extends Fragment {
             data.add(fixed);
         }
         process = cursor.getString(4);
+    }
+
+    private void goToEdit(){
+        editRecept_fragment = new editRecept_fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        bundle.putString("imeRecepta",title);
+        bundle.putString("kategorija",category);
+        bundle.putString("sestavine",ingredients);
+        bundle.putString("postopek",process);
+        editRecept_fragment.setArguments(bundle);
+        Fragment fragment = new editRecept_fragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, editRecept_fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

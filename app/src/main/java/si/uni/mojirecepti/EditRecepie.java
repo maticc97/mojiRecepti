@@ -53,7 +53,7 @@ public class EditRecepie extends AppCompatActivity {
 
         novRecept.setText(dobiIme);
         //set checked
-        System.out.println(id + dobiPostopek + dobiKategorijo + dobiIme);
+        //System.out.println(id + dobiPostopek + dobiKategorijo + dobiIme);
 
         switch(dobiKategorijo){
             case "Predjed":
