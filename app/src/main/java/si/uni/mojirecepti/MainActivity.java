@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
     private ArrayList<String> data = new ArrayList<String>();
+    private TextView headerTitle;
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -54,7 +55,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
+
+
     AlertDialog.Builder builder;
+
+    ImageButton preklici, delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
 
+        View headerView = navigationView.getHeaderView(0);
+
+        headerTitle  = headerView.findViewById(R.id.nav_header);
+       // System.out.println(headerTitle.getText());
         ActionBar actionBar = getSupportActionBar();
         setSupportActionBar(toolbar);
 
@@ -78,18 +87,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
         toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
 
         myDb = new DatabaseHelper(this);
 
-        lvItems = (ListView) findViewById(R.id.lvItems);
-        addData("all");
+        //lvItems = (ListView) findViewById(R.id.lvItems);
+        //addData("all");
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
+
+        delete = findViewById(R.id.odstranisest);
+        preklici = findViewById(R.id.preklici_btn);
     }
 
+    /**
     private void addData(String category) {
         //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
         Cursor cursor = myDb.recipeTitles(category);
@@ -110,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
+*/
     //to je sam primer kako daš funkcije na gumb v meniju, samo vstaviš notri v case - vsi casi so dodani
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -120,33 +132,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /**data.removeAll(data);
                 addData("all");
                 drawerLayout.closeDrawers();*/
+                navigationView.setCheckedItem(R.id.vsiRecepti_menuItem);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new addRecept_fragment()).commit();
                 break;
             case R.id.predjed_menuItem:
-                Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
+                /**Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
                 data.removeAll(data);
                 addData("Predjed");
-                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();*/
+                navigationView.setCheckedItem(R.id.predjed_menuItem);
                 break;
 
             case R.id.glavne_jedi_MenuItem:
-                Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
+                /**Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
                 data.removeAll(data);
                 addData("Glavna jed");
-                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();*/
                 break;
 
             case R.id.sladice_menuItem:
+                /**
                 Toast.makeText(MainActivity.this, "Preklopi na stran sladice", Toast.LENGTH_SHORT).show();
                 data.removeAll(data);
                 addData("Sladica");
-                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();*/
                 break;
         }
         return false;
     }
-
+    /**
     private class MyListAdapter extends ArrayAdapter<String> {
         //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
         Cursor cursor = myDb.recipeTitles("all");
@@ -163,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.cursor = cursor;
         }
 
-        @Override
+        /**@Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder mainViewholder = null;
             if(convertView == null) {
@@ -223,19 +238,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             return convertView;
         }
-    }
-
+    }   */
+    /**
     public static class ViewHolder {
         TextView title;
         ImageButton moreButton;
         ImageButton deleteButton;
-    }
+    }*/
 
+    /*
     public void onButtonShowPopupWindowClick(View view) {
         Intent intent = new Intent(this, addRecipeActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-    }
+    }*/
+
 
 }
 

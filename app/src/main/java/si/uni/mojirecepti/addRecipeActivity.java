@@ -208,7 +208,7 @@ public class addRecipeActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-   }
+    }
 
 
 }
