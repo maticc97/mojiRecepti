@@ -186,6 +186,7 @@ public class addRecept_fragment extends Fragment {
                                 opisPostopka.getText().toString());
                         if(isInserted){
                             //TODO tukaj dodaj prehod na glavni fregment vsi recepti
+                            ((MainActivity)getActivity()).openAllRecipesLayout(getView());
                             Toast.makeText(getActivity(), "Recept uspešno dodan", Toast.LENGTH_SHORT).show();
                         }
                         else{
@@ -201,6 +202,7 @@ public class addRecept_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO prehod na fragment main
+                ((MainActivity)getActivity()).openAllRecipesLayout(getView());
                 Toast.makeText(getActivity(), "Dodajanje recepta preklicano", Toast.LENGTH_SHORT).show();
             }
         });
