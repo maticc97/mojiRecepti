@@ -7,51 +7,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
     tools:openDrawer="start"
-    android:id="@+id/drawer">
-    <RelativeLayout
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        >
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lvItems"
-            android:layout_below="@id/toolbar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/addNewRecipe">
-        </ListView>
-
-        <ImageButton
-            android:id="@+id/addNewRecipe"
-            style="@style/btn"
-            android:src="@drawable/ic_add"
-            android:background="@drawable/orange_background"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:onClick="onButtonShowPopupWindowClick"
-            android:layout_alignParentEnd="true" />
-
+        android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
             android:id="@+id/toolbar"
-            android:background="@color/toolBar"
-            app:titleTextColor="@color/white"
-            />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:elevation="4dp"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container"/>
 
-    </RelativeLayout>
+    </LinearLayout>
+    
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/navigationView"
-        app:menu="@menu/menu_item"
-        app:headerLayout="@layout/header"
         android:layout_gravity="start"
-        app:itemBackground="@drawable/menu_seperator"
-        />
-
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"
+    />
 
 </androidx.drawerlayout.widget.DrawerLayout>

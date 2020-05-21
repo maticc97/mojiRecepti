@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EditRecepie"
-    tools:openDrawer="start"
-    android:id="@+id/drawer2">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/menuHeader">
+    android:layout_height="match_parent">
+
+
     <ScrollView
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <RelativeLayout
@@ -21,7 +14,7 @@
         android:layout_height="match_parent"
         >
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/naslovna_vrstica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -199,27 +192,12 @@
             android:layout_toStartOf="@id/preklici_btn"
             android:layout_marginEnd="30dp"
             android:layout_marginStart="10dp"
-            android:onClick="onSaveButtonclick"/>
+            />
 
     </RelativeLayout>
     </ScrollView>
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            android:background="@color/toolBar"
-            app:titleTextColor="@color/white"
-            />
-    </RelativeLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:id="@+id/navigationView2"
-        app:menu="@menu/menu_item"
-        app:headerLayout="@layout/header"
-        android:layout_gravity="start"
-        app:itemBackground="@drawable/menu_seperator"
-        />
+</RelativeLayout>
 
-</androidx.drawerlayout.widget.DrawerLayout>
+
+

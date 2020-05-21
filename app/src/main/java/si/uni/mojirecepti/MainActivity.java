@@ -7,6 +7,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -42,14 +44,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
     private ArrayList<String> data = new ArrayList<String>();
+    private TextView headerTitle;
+    public String recipeCategory = "all";
+    public String currentRecipeId;
+
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     //drawer layout
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
+
+
     AlertDialog.Builder builder;
+
+    ImageButton preklici, delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +73,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder = new AlertDialog.Builder(this);
 
         //nastavbimo meni
-        drawerLayout= findViewById(R.id.drawer);
+        drawerLayout= findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.nav_view);
 
+        View headerView = navigationView.getHeaderView(0);
+
+        headerTitle  = headerView.findViewById(R.id.nav_header);
+       // System.out.println(headerTitle.getText());
         ActionBar actionBar = getSupportActionBar();
         setSupportActionBar(toolbar);
 
@@ -73,35 +89,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
         toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
 
         myDb = new DatabaseHelper(this);
 
-        lvItems = (ListView) findViewById(R.id.lvItems);
-        addData("all");
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
+
+        delete = findViewById(R.id.odstranisest);
+        preklici = findViewById(R.id.preklici_btn);
     }
-
-    private void addData(String category) {
-        //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
-        Cursor cursor = myDb.recipeTitles(category);
-
-        if (cursor.getCount() < 0) {
-            Toast.makeText(this, "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
-        } else {
-            //se premikamo po en kazalec naprej
-            while (cursor.moveToNext()) {
-                //v seznam vseh jedi (data) se doda ime jedi -> stolpec 1 je ime, stolpec 0 je id
-                data.add(cursor.getString(1));
-            }
-
-            itemsAdapter = new MyListAdapter(this, R.layout.list_item, data);
-            //set cursor zato, da je seznam jedi v myListAdapter pravilen, odvisen od kategorije
-            ((MyListAdapter) itemsAdapter).setCursor(myDb.recipeTitles(category));
-            lvItems.setAdapter(itemsAdapter);
-        }
-    }
-
 
     //to je sam primer kako daš funkcije na gumb v meniju, samo vstaviš notri v case - vsi casi so dodani
     @Override
@@ -109,123 +106,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //System.out.println(item.getItemId());
         switch (item.getItemId()){
             case R.id.vsiRecepti_menuItem:
-                data.removeAll(data);
-                addData("all");
+                recipeCategory = "all";
+                navigationView.setCheckedItem(R.id.vsiRecepti_menuItem);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
                 drawerLayout.closeDrawers();
                 break;
             case R.id.predjed_menuItem:
-                Toast.makeText(MainActivity.this, "Preklopi na stran predjedi", Toast.LENGTH_SHORT).show();
-                data.removeAll(data);
-                addData("Predjed");
+                recipeCategory = "Predjed";
+                navigationView.setCheckedItem(R.id.predjed_menuItem);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
                 drawerLayout.closeDrawers();
                 break;
 
             case R.id.glavne_jedi_MenuItem:
-                Toast.makeText(MainActivity.this, "Preklopi na stran glavne jedi", Toast.LENGTH_SHORT).show();
-                data.removeAll(data);
-                addData("Glavna jed");
+                recipeCategory = "Glavna jed";
+                navigationView.setCheckedItem(R.id.glavne_jedi_MenuItem);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
                 drawerLayout.closeDrawers();
                 break;
 
             case R.id.sladice_menuItem:
-                Toast.makeText(MainActivity.this, "Preklopi na stran sladice", Toast.LENGTH_SHORT).show();
-                data.removeAll(data);
-                addData("Sladica");
+                recipeCategory = "Sladica";
+                navigationView.setCheckedItem(R.id.sladice_menuItem);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
                 drawerLayout.closeDrawers();
                 break;
         }
         return false;
     }
 
-    private class MyListAdapter extends ArrayAdapter<String> {
-        //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
-        Cursor cursor = myDb.recipeTitles("all");
-        private int layout;
-        private List<String> mObjects;
-        MyListAdapter(Context context, int resource, List<String> objects) {
-            super(context, resource, objects);
-            mObjects = objects;
-            layout = resource;
-        }
-
-        //če je druga kategorija, se je seznam posodobil da je pravilen
-        public void setCursor(Cursor cursor) {
-            this.cursor = cursor;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder mainViewholder = null;
-            if(convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(layout, parent, false);
-                ViewHolder viewHolder = new ViewHolder();
-                viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.moreButton = (ImageButton) convertView.findViewById(R.id.show_more_btn);
-                viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.delete_btn);
-                convertView.setTag(viewHolder);
-            }
-            mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.moreButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //cursor premaknemo na kliknjeni element seznama, stolpec 0 je id kliknjene jedi
-                    cursor.moveToPosition(position);
-                    final String id = cursor.getString(0);
-                    //odpremo novo aktivnost, zraven dodamo parameter ID
-                    Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-                    intent.putExtra("ID", id);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-            });
-            mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    builder.setTitle("OPOZORILO!");
-                    builder.setMessage("Ali ste prepričani, da želite izbrisati recept?");
-
-                    builder.setPositiveButton("DA", new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            cursor.moveToPosition(position);
-                            final String id = cursor.getString(0);
-                            myDb.deleteRecipe(id);
-                            data.remove(position);
-                            itemsAdapter.notifyDataSetChanged();
-                        }
-                    });
-
-                    builder.setNegativeButton("NE", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Do nothing
-                            dialog.dismiss();
-                        }
-                    });
-
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
-            });
-            mainViewholder.title.setText(getItem(position));
-
-            return convertView;
-        }
+    public void openAllRecipesLayout(View view) {
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
     }
 
-    public static class ViewHolder {
-        TextView title;
-        ImageButton moreButton;
-        ImageButton deleteButton;
+    public void openAddRecipeLayout(View view) {
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new addRecept_fragment()).commit();
     }
 
-    public void onButtonShowPopupWindowClick(View view) {
-        Intent intent = new Intent(this, addRecipeActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    public void openRecipeLayout(String id) {
+        currentRecipeId = id;
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new Recipe_fragment()).commit();
     }
+
 
 }
 
