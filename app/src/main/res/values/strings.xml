@@ -3,4 +3,25 @@
     <string name="nov_recept">Nov recept</string>
     <string name="drawerOpen">drawerOpen</string>
     <string name="drawerClose">drawerClose</string>
+    <string name="search">Iskalnik</string>
+    <string name="all_recipes">Vsi recepti</string>
+    <string name="starters">Predjedi</string>
+    <string name="main_dishes">Glavne jedi</string>
+    <string name="deserts">Sladice</string>
+    <string name="starter">Predjed</string>
+    <string name="main_dish">Glavna jed</string>
+    <string name="desert">Sladica</string>
+    <string name="rest">Ostalo</string>
+    <string name="recipe_name_hint">Vnesi ime recepta</string>
+    <string name="choose_category">Izberi kategorijo</string>
+    <string name="ingredients">Sestavine</string>
+    <string name="ingredients_hint">Vnesi sestavino in količino</string>
+    <string name="process">Postopek</string>
+    <string name="process_hint">Tukaj vpiši postopek priprave jedi…</string>
+    <string name="recipe_canceled">Dodajanje recepta preklicano</string>
+    <string name="recipe_added">Recept uspešno dodan</string>
+    <string name="warning_title">OPOZORILO!</string>
+    <string name="delete_warning_text">Ali ste prepričani, da želite izbrisati recept?</string>
+    <string name="yes">DA</string>
+    <string name="no">NE</string>
 </resources>

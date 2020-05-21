@@ -3,19 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/vsiRecepti_menuItem"
-        android:title="Vsi recepti"
+        android:title="@string/all_recipes"
 
         />
     <item
         android:id="@+id/predjed_menuItem"
-        android:title="Predjedi"
+        android:title="@string/starters"
         />
     <item
         android:id="@+id/glavne_jedi_MenuItem"
-        android:title="Glavne jedi"
+        android:title="@string/main_dishes"
         />
     <item
         android:id="@+id/sladice_menuItem"
-        android:title="Sladice"
+        android:title="@string/deserts"
+        />
+    <item
+        android:id="@+id/ostalo_menuItem"
+        android:title="@string/rest"
         />
 </menu>
