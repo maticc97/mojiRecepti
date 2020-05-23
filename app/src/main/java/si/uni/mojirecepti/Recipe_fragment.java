@@ -104,7 +104,7 @@ public class Recipe_fragment extends Fragment {
         bundle.putString("id", id);
         bundle.putString("imeRecepta",title);
         bundle.putString("kategorija",category);
-        bundle.putString("sestavine",ingredients);
+        bundle.putStringArrayList("sestavine",data);
         bundle.putString("postopek",process);
         editRecept_fragment.setArguments(bundle);
         Fragment fragment = new editRecept_fragment();
