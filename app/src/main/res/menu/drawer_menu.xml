@@ -9,7 +9,8 @@
             />
         <item
             android:id="@+id/predjed_menuItem"
-            android:title="@string/starters" />
+            android:title="@string/starters"
+            android:icon="@drawable/main_dishes"/>
         <item
             android:id="@+id/glavne_jedi_MenuItem"
             android:title="@string/main_dishes" />
