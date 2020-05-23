@@ -5,11 +5,14 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +39,25 @@ public class RecipeList_fragment extends Fragment {
         myDb = new DatabaseHelper(getContext());
 
         lvItems = view.findViewById(R.id.lvItems);
+
+        //search
+        EditText search = view.findViewById(R.id.searchFilter);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                itemsAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         if (((MainActivity) getActivity()) != null) {
             recipeCategory = ((MainActivity) getActivity()).recipeCategory;

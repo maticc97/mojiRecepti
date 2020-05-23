@@ -25,7 +25,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_below="@id/dodajSliko"
-        android:hint=" Vnesi ime recepta"
+        android:hint="@string/recipe_name_hint"
         android:padding="10dp"/>
 
     <ImageButton
@@ -36,7 +36,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/button"
@@ -46,14 +49,16 @@
         android:textSize="12dp"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/dodajSliko"/>
+        android:layout_below="@id/dodajSliko"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp" />
 
     <TextView
         android:id="@+id/izberi_kategorijo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imeRecepta"
-        android:text="Izberi kategorijo"
+        android:text="@string/choose_category"
         android:layout_margin="10dp"
         android:textStyle="bold"
         android:textSize="17dp"/>
@@ -72,28 +77,28 @@
             android:id="@+id/kategorijaPredjed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Predjed"
+            android:text="@string/starter"
             android:textSize="15sp"
             android:layout_marginLeft="10dp"/>
         <RadioButton
             android:id="@+id/kategorijaGlavna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Glavna jed"
+            android:text="@string/main_dish"
             android:textSize="15sp"
             android:layout_marginLeft="10dp"/>
         <RadioButton
             android:id="@+id/kategorijaSladica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sladica"
+            android:text="@string/desert"
             android:textSize="15sp"
             android:layout_marginLeft="10dp"/>
         <RadioButton
             android:id="@+id/kategorijaOstalo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ostalo"
+            android:text="@string/rest"
             android:layout_marginRight="10dp"
             android:textSize="15sp"
             />
@@ -106,7 +111,7 @@
         android:layout_margin="5dp"
         android:textStyle="bold"
         android:textSize="17dp"
-        android:text="Sestavine"/>
+        android:text="@string/ingredients"/>
 
     <Button
         android:id="@+id/btnSestavine"
@@ -123,7 +128,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:layout_below="@id/sestavine_text"
-        android:hint="Vnesi sestavino ter količino"
+        android:hint="@string/ingredients_hint"
         android:textSize="15sp"
         android:padding="10dp"
         android:maxLength="30"/>
@@ -148,7 +153,7 @@
         android:layout_margin="10dp"
         android:textStyle="bold"
         android:textSize="17dp"
-        android:text="Postopek"/>
+        android:text="@string/process"/>
 
    <EditText
        android:layout_width="match_parent"
@@ -162,7 +167,7 @@
        android:layout_marginBottom="20dp"
 
 
-        android:hint="Tukaj vpiši postopek priprave jedi..."
+        android:hint="@string/process_hint"
        />
 
     <Button
