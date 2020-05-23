@@ -59,21 +59,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Item is a class representing any item with id, name and description
-    public void updateItem(String id, String imeRecepta, String kategorija, String postopek) {
+    public boolean updateItem(String id, String imeRecepta, String kategorija, String postopek, ArrayList<String> sestavine) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues contentValues = new ContentValues();
+        System.out.println(sestavine);
 
+        if(imeRecepta.equals("") || kategorija==null|| sestavine.size()<=0 ||postopek.equals("")){
+            return false;
+        }
         //key, vsebina
-        contentValues.put(COL_2, imeRecepta);
-        System.out.println(kategorija);
-        contentValues.put(COL_3, kategorija);
-        //contentValues.put(COL_4, String.valueOf(sestavine));
-        contentValues.put(COL_5, postopek);
-        //vrne -1 če ni okej
+        else{
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COL_2, imeRecepta);
+            contentValues.put(COL_3, kategorija);
+            contentValues.put(COL_4, String.valueOf(sestavine));
+            contentValues.put(COL_5, postopek);
+            //vrne -1 če ni okej
 
-        db.update(TABELA, contentValues, "ID = ?",new String[] {id});
-
+            db.update(TABELA, contentValues, "ID = ?", new String[]{id});
+            return true;
+        }
     }
 
     public Cursor recipeTitles(String category) {

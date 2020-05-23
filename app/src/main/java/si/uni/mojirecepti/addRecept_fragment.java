@@ -137,9 +137,14 @@ public class addRecept_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String result = napisiSestavino.getText().toString();
-                arrayList.add(result);
-                adapter.notifyDataSetChanged();
-                napisiSestavino.setText("");
+                if(!result.equals("")) {
+                    arrayList.add(result);
+                    adapter.notifyDataSetChanged();
+                    napisiSestavino.setText("");
+                }
+                else{
+                    Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -169,7 +174,6 @@ public class addRecept_fragment extends Fragment {
                         kategorija = "Ostalo";
                         break;
                 }
-                Toast.makeText(getActivity(), kategorija, Toast.LENGTH_SHORT).show();
             }
         });
     }

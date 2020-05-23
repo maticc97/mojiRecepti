@@ -25,6 +25,6 @@
         android:id="@+id/chef_hat"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        app:srcCompat="@drawable/hat_black"
+        app:srcCompat="@drawable/white_hat"
         android:paddingBottom="10dp" />
 </RelativeLayout>
