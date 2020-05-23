@@ -105,7 +105,7 @@ public class EditRecepie extends AppCompatActivity {
     }
 
     public void onSaveButtonclick(View view){
-        myDb.updateItem(id,novRecept.getText().toString(),kategorija,postopekPolje.getText().toString());
+        myDb.updateItem(id,novRecept.getText().toString(),kategorija,postopekPolje.getText().toString(), null);
         Toast.makeText(EditRecepie.this, "Recept uspešno dodan", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(EditRecepie.this, MainActivity.class);
         startActivity(intent);

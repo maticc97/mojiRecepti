@@ -13,8 +13,6 @@
         android:textAllCaps="true"
         android:textSize="20sp"
         android:layout_marginTop="21dp"
-        android:layout_toStartOf="@+id/show_more_btn"
-        android:layout_toLeftOf="@+id/show_more_btn"
         android:text="New item" />
 
 
