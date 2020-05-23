@@ -19,5 +19,9 @@
         <item
             android:id="@+id/ostalo_menuItem"
             android:title="@string/rest" />
+        <item
+            android:id="@+id/onas_menuItem"
+            android:title="O nas"
+            />
     </group>
 </menu>

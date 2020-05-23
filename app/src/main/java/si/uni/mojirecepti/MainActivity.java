@@ -137,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
                 drawerLayout.closeDrawers();
                 break;
+            case R.id.onas_menuItem:
+                navigationView.setCheckedItem(R.id.onas_menuItem);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Onas_fragment()).commit();
+                drawerLayout.closeDrawers();
         }
         return false;
     }

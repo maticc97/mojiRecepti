@@ -24,4 +24,5 @@
     <string name="delete_warning_text">Ali ste prepričani, da želite izbrisati recept?</string>
     <string name="yes">DA</string>
     <string name="no">NE</string>
+    <string name="about_us_title">O Nas - kdo smo?</string>
 </resources>

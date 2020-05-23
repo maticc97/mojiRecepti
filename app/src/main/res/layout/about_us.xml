@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_marginBottom="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+        <TextView android:layout_height="wrap_content"
+            android:id="@+id/kdo_smo"
+            android:layout_width="match_parent"
+            android:text="@string/about_us_title"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/opis_projekta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kdo_smo"
+            android:text="Aplikacija mojiRecepti je nastala v okviru laboratorijskih vaj pri predmetu Terminalske naprave in uporabniški vmesniki, ki se izvaja v 3. letniku študija multimedije na Fakulteti za elektrotehniko. "
+            android:textSize="20sp"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:id="@+id/ekipa"
+            android:layout_width="match_parent"
+            android:text="Razvijalci"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:layout_below="@id/opis_projekta"/>
+
+        <ImageView
+            android:id="@+id/jaka_slika"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/jaka"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ekipa"
+            />
+        <TextView
+            android:id="@+id/napis_jaka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jaka Bezovšek"
+            android:layout_below="@id/jaka_slika"
+            android:layout_centerHorizontal="true"
+            android:textSize="18dp"
+            />
+
+        <ImageView
+            android:id="@+id/matic_slika"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/lulik_matic"
+            android:layout_below="@id/napis_jaka"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:id="@+id/napis_matic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Matic Lulik"
+            android:layout_below="@id/matic_slika"
+            android:layout_centerHorizontal="true"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:id="@+id/date_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ljubljana, 2020"
+            android:layout_below="@id/napis_matic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="100dp"
+            />
+    </RelativeLayout>
+
+</ScrollView>
