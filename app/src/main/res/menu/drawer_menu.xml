@@ -5,24 +5,30 @@
         <item
             android:id="@+id/vsiRecepti_menuItem"
             android:title="@string/all_recipes"
-
+            android:icon="@drawable/list"
             />
         <item
             android:id="@+id/predjed_menuItem"
             android:title="@string/starters"
-            android:icon="@drawable/main_dishes"/>
+            android:icon="@drawable/main_dishes"
+            />
         <item
             android:id="@+id/glavne_jedi_MenuItem"
-            android:title="@string/main_dishes" />
+            android:title="@string/main_dishes"
+            android:icon="@drawable/main_dish"/>
         <item
             android:id="@+id/sladice_menuItem"
-            android:title="@string/deserts" />
+            android:title="@string/deserts"
+            android:icon="@drawable/pancake"/>
         <item
             android:id="@+id/ostalo_menuItem"
-            android:title="@string/rest" />
+            android:title="@string/rest"
+            android:icon="@drawable/drink"/>
         <item
             android:id="@+id/onas_menuItem"
-            android:title="O nas"
+            android:title="@string/o_nas"
+            android:icon="@drawable/info"
+
             />
     </group>
 </menu>

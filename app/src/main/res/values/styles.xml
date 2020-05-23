@@ -20,4 +20,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="pading_item">
+        <item name="android:paddingTop">30dp</item>
+    </style>
 </resources>
