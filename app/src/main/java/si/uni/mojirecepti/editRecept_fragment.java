@@ -115,6 +115,7 @@ public class editRecept_fragment extends Fragment {
         return view;
     }
 
+
     private class MyAdapter extends ArrayAdapter<String> {
         private int layout;
         private List<String> mObjects;

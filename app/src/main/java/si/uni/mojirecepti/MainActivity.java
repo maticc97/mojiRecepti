@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -98,6 +99,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         delete = findViewById(R.id.odstranisest);
         preklici = findViewById(R.id.preklici_btn);
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
+        drawerLayout.closeDrawers();
     }
 
     //to je sam primer kako daš funkcije na gumb v meniju, samo vstaviš notri v case - vsi casi so dodani
