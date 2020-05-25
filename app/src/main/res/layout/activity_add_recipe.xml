@@ -3,22 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    >
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
 
             <TextView
                 android:id="@+id/naslovna_vrstica"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="@string/nov_recept"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -31,9 +33,7 @@
                 android:ems="10"
                 android:hint=" Vnesi ime recepta"
                 android:inputType="textPersonName"
-                android:layout_marginLeft="10dp"
-                android:padding="10dp"
-                />
+                android:padding="10dp" />
 
             <ImageButton
                 android:id="@+id/dodajSliko"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imeRecepta"
-                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Izberi kategorijo"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -73,15 +73,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/izberi_kategorijo"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/kategorijaPredjed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
                     android:text="@string/starter"
                     android:textSize="15sp" />
 
@@ -89,8 +89,7 @@
                     android:id="@+id/kategorijaGlavna"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
                     android:text="@string/main_dish"
                     android:textSize="15sp" />
 
@@ -98,8 +97,7 @@
                     android:id="@+id/kategorijaSladica"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
                     android:text="@string/desert"
                     android:textSize="15sp" />
 
@@ -107,8 +105,7 @@
                     android:id="@+id/kategorijaOstalo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:text="@string/rest"
                     android:textSize="15sp" />
             </RadioGroup>
@@ -118,8 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/radio_gumbi"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/ingredients"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -138,13 +134,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sestavine_text"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="5dp"
                 android:hint="@string/ingredients_hint"
                 android:inputType="textPersonName"
                 android:maxLength="50"
-                android:padding="10dp"
                 android:textSize="15sp" />
 
             <ListView
@@ -152,8 +145,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_below="@id/btnSestavine"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/back"
                 android:scrollbarSize="10dp" />
@@ -163,8 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/listView_lv"
-               android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/process"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -174,12 +164,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/postopek_text"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/back"
                 android:hint="@string/process_hint"
-                android:lines="5"
+                android:lines="3"
                 android:padding="10dp" />
 
             <ImageButton
@@ -194,16 +183,17 @@
 
             <ImageButton
                 android:id="@+id/shrani"
-                style="@style/btn"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="50dp"
                 android:layout_below="@id/postopek_polje"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_toStartOf="@id/preklici_btn"
                 android:layout_toLeftOf="@id/preklici_btn"
                 android:background="@drawable/green_background"
                 android:src="@drawable/ic_save" />
+
 
         </RelativeLayout>
     </ScrollView>
