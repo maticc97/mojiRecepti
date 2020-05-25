@@ -31,7 +31,9 @@
                 android:ems="10"
                 android:hint=" Vnesi ime recepta"
                 android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:layout_marginBottom=""/>
 
             <ImageButton
                 android:id="@+id/dodajSliko"
@@ -161,7 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/listView_lv"
-                android:layout_margin="10dp"
+               android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/process"
                 android:textSize="17dp"
                 android:textStyle="bold" />
