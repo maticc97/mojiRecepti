@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:padding="10dp">
+    android:padding="5dp"
+    >
 
     <TextView
         android:id="@+id/lst_txt"
@@ -11,7 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:textAllCaps="true"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginTop="21dp"
         android:text="New item" />
 
@@ -19,9 +20,10 @@
 
     <ImageButton
         android:id="@+id/odstranisest"
-        style="@style/btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_delete"
+        android:src="@drawable/ic_remove_foreground"
         android:background="@drawable/red_background"
         android:layout_alignParentEnd="true" />
 
