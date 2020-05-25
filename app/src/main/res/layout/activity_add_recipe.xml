@@ -33,7 +33,7 @@
                 android:inputType="textPersonName"
                 android:layout_marginLeft="10dp"
                 android:padding="10dp"
-                android:layout_marginBottom=""/>
+                />
 
             <ImageButton
                 android:id="@+id/dodajSliko"
@@ -156,7 +156,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/back"
-                android:scrollbarSize="30dp" />
+                android:scrollbarSize="10dp" />
 
             <TextView
                 android:id="@+id/postopek_text"
