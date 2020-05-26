@@ -26,5 +26,6 @@
     <string name="no">NE</string>
     <string name="about_us_title">O Nas - kdo smo?</string>
     <string name="o_nas">O Nas - kdo smo?</string>
+    <string name="naslov_recepta">Naslov recepta</string>
 
 </resources>
