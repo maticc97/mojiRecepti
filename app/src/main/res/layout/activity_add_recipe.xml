@@ -179,7 +179,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/red_background"
                 android:onClick="onCancelButtonClick"
-                android:src="@drawable/ic_close_foreground" />
+                android:src="@drawable/ic_close" />
 
             <ImageButton
                 android:id="@+id/shrani"
