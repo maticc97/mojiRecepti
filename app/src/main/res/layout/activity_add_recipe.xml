@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/naslov_recepta"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:layout_above="@id/imeRecepta"
                 android:textStyle="bold" />
 

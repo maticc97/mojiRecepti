@@ -8,9 +8,6 @@
         android:id="@+id/recipeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -20,11 +17,9 @@
         android:id="@+id/recipeCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
         android:text="TextView"
-        android:textSize="15sp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_below="@id/recipeTitle"/>
 
@@ -32,42 +27,40 @@
         android:id="@+id/ingredientsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/ingredients"
-        android:textSize="20sp"
+        android:textSize="17dp"
+        android:textStyle="bold"
         android:layout_below="@id/recipeCategory"/>
 
     <ListView
         android:id="@+id/ingredientsList"
         android:layout_width="wrap_content"
-        android:layout_height="186dp"
+        android:layout_height="150dp"
         android:layout_below="@id/ingredientsTitle"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
+        android:background="@drawable/back"
+        android:scrollbarSize="10dp"
+        android:layout_marginTop="10dp"
         />
 
     <TextView
         android:id="@+id/processTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/process"
-        android:textSize="20sp"
+        android:textSize="17dp"
+        android:textStyle="bold"
         android:layout_below="@id/ingredientsList"/>
 
     <TextView
         android:id="@+id/recipeProcess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:text="TextView"
-        android:layout_below="@id/processTitle"/>
+        android:layout_below="@id/processTitle"
+        />
 
     <ImageButton
         android:id="@+id/editButton"
