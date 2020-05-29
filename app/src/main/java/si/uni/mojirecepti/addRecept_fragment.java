@@ -4,10 +4,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -29,6 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,11 +112,31 @@ public class addRecept_fragment extends Fragment {
         capturePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectImage();
+                if(ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            2000);
+                }
+                else {
+                    startGallery();
+                }
             }
         });
 
+        Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
         return view;
+    }
+
+    private void startGallery() {
+        Intent cameraIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        cameraIntent.setType("image/*");
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, 1000);
+        }
     }
 
     private class MyAdapter extends ArrayAdapter<String> {
@@ -151,44 +175,20 @@ public class addRecept_fragment extends Fragment {
         }
     }
 
-    private void SelectImage(){
-        final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle("Add Image");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(items[which].equals("Camera")){
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_CAMERA);
-                }
-                else if(items[which].equals("Gallery")){
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    intent.setType("image/*");
-                    startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
-                }
-                else if(items[which].equals("Cancel")){
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        builder.show();
-    }
-
+    //add image from gallery part
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode== Activity.RESULT_OK) {
-            if (resultCode == REQUEST_CAMERA) {
-                Bundle bundle = data.getExtras();
-                final Bitmap bmp = (Bitmap) bundle.get("data");
-                dodajSliko.setImageBitmap(bmp);
-            } else if (resultCode == SELECT_FILE) {
-                Uri selectedImgUri = data.getData();
-                dodajSliko.setImageURI(selectedImgUri);
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode == 1000){
+                Uri returnUri = data.getData();
+                Bitmap bitmapImage = null;
+                try {
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                dodajSliko.setBackgroundColor(0x00000000);
+                dodajSliko.setImageBitmap(bitmapImage);
             }
         }
     }
