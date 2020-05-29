@@ -1,13 +1,18 @@
 package si.uni.mojirecepti;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,6 +39,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 public class addRecept_fragment extends Fragment {
@@ -46,11 +53,15 @@ public class addRecept_fragment extends Fragment {
     ImageButton btnShrani;
     DatabaseHelper myDb;
 
+    Integer REQUEST_CAMERA = 1;
+    Integer SELECT_FILE = 0;
+
     EditText napisiSestavino;
-    ImageButton dodaj;
+    ImageButton dodaj, capturePhoto;
     ImageButton preklici, delete;
     ListView lv;
     Layout a;
+    ImageView dodajSliko;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
@@ -75,6 +86,9 @@ public class addRecept_fragment extends Fragment {
         dodaj = view.findViewById(R.id.btnSestavine);
         lv = view.findViewById(R.id.listView_lv);
 
+        dodajSliko = view.findViewById(R.id.dodajSliko);
+        capturePhoto = view.findViewById(R.id.button_add_pic);
+
         delete = view.findViewById(R.id.odstranisest);
         preklici = view.findViewById(R.id.preklici_btn);
 
@@ -85,10 +99,19 @@ public class addRecept_fragment extends Fragment {
         adapter = new MyAdapter(getContext(), R.layout.list_item_layout, arrayList);
         lv.setAdapter(adapter);
 
+
         preklici();
         dodajSestavino();
         GetRadioButtonData();
         AddData();
+
+        capturePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectImage();
+            }
+        });
+
         return view;
     }
 
@@ -127,6 +150,49 @@ public class addRecept_fragment extends Fragment {
             return convertView;
         }
     }
+
+    private void SelectImage(){
+        final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder.setTitle("Add Image");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(items[which].equals("Camera")){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
+                }
+                else if(items[which].equals("Gallery")){
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");
+                    startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
+                }
+                else if(items[which].equals("Cancel")){
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        builder.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode== Activity.RESULT_OK) {
+            if (resultCode == REQUEST_CAMERA) {
+                Bundle bundle = data.getExtras();
+                final Bitmap bmp = (Bitmap) bundle.get("data");
+                dodajSliko.setImageBitmap(bmp);
+            } else if (resultCode == SELECT_FILE) {
+                Uri selectedImgUri = data.getData();
+                dodajSliko.setImageURI(selectedImgUri);
+            }
+        }
+    }
+
     public static class addViewHolder {
         TextView title;
         ImageButton deleteButton;
