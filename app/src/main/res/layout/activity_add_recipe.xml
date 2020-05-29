@@ -44,7 +44,7 @@
                 android:inputType="textPersonName"
                 />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/dodajSliko"
                 android:layout_width="122dp"
                 android:layout_height="110dp"
@@ -52,10 +52,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:background="@color/grey"/>
 
             <ImageButton
-                android:id="@+id/button"
+                android:id="@+id/button_add_pic"
                 style="@style/btn"
                 android:layout_below="@id/dodajSliko"
                 android:layout_alignParentEnd="true"

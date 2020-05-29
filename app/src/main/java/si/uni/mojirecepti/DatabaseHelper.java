@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_3 = "KATEGORIJA";
     public static final String COL_4 = "SESTAVINE";
     public static final String COL_5 = "POSTOPEK";
+    public static final String COL_6 = "SLIKA";
 
 
 
@@ -28,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABELA + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,IME TEXT,KATEGORIJA TEXT,SESTAVINE TEXT, POSTOPEK TEXT)");
+        db.execSQL("create table " + TABELA + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,IME TEXT,KATEGORIJA TEXT,SESTAVINE TEXT, POSTOPEK TEXT, SLIKA TEXT)");
     }
 
     @Override
@@ -37,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String ime, String kategorija, ArrayList<String> sestavine, String postopek){
+    public boolean insertData(String ime, String kategorija, ArrayList<String> sestavine, String postopek, byte[] image){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -50,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_3, kategorija);
         contentValues.put(COL_4, String.valueOf(sestavine));
         contentValues.put(COL_5, postopek);
+        contentValues.put(COL_6, image);
         //vrne -1 če ni okej
         long result = db.insert(TABELA, null, contentValues);
         if(result==-1)
@@ -57,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+
 
     //Item is a class representing any item with id, name and description
     public boolean updateItem(String id, String imeRecepta, String kategorija, String postopek, ArrayList<String> sestavine) {

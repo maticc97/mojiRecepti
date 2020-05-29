@@ -1,13 +1,21 @@
 package si.uni.mojirecepti;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +25,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +43,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 public class addRecept_fragment extends Fragment {
@@ -46,14 +57,20 @@ public class addRecept_fragment extends Fragment {
     ImageButton btnShrani;
     DatabaseHelper myDb;
 
+    Integer REQUEST_CAMERA = 1;
+    Integer SELECT_FILE = 0;
+
     EditText napisiSestavino;
-    ImageButton dodaj;
+    ImageButton dodaj, capturePhoto;
     ImageButton preklici, delete;
     ListView lv;
     Layout a;
+    ImageView dodajSliko;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
+    Bitmap bitmapImage;
+
     @Nullable
     @Override
 
@@ -75,6 +92,9 @@ public class addRecept_fragment extends Fragment {
         dodaj = view.findViewById(R.id.btnSestavine);
         lv = view.findViewById(R.id.listView_lv);
 
+        dodajSliko = view.findViewById(R.id.dodajSliko);
+        capturePhoto = view.findViewById(R.id.button_add_pic);
+
         delete = view.findViewById(R.id.odstranisest);
         preklici = view.findViewById(R.id.preklici_btn);
 
@@ -85,11 +105,40 @@ public class addRecept_fragment extends Fragment {
         adapter = new MyAdapter(getContext(), R.layout.list_item_layout, arrayList);
         lv.setAdapter(adapter);
 
+
         preklici();
         dodajSestavino();
         GetRadioButtonData();
         AddData();
+
+        capturePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            2000);
+                }
+                else {
+                    startGallery();
+                }
+            }
+        });
+
+        Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
         return view;
+    }
+
+    private void startGallery() {
+        Intent cameraIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        cameraIntent.setType("image/*");
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, 1000);
+        }
     }
 
     private class MyAdapter extends ArrayAdapter<String> {
@@ -103,16 +152,16 @@ public class addRecept_fragment extends Fragment {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            addRecipeActivity.addViewHolder mainViewholder = null;
+            addViewHolder mainViewholder = null;
             if(convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
-                addRecipeActivity.addViewHolder viewHolder = new addRecipeActivity.addViewHolder();
+                addViewHolder viewHolder = new addViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.lst_txt);
                 viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.odstranisest);
                 convertView.setTag(viewHolder);
             }
-            mainViewholder = (addRecipeActivity.addViewHolder) convertView.getTag();
+            mainViewholder = (addViewHolder) convertView.getTag();
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,6 +176,24 @@ public class addRecept_fragment extends Fragment {
             return convertView;
         }
     }
+
+    //add image from gallery part
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode == 1000){
+                Uri returnUri = data.getData();
+                try {
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                dodajSliko.setBackgroundColor(0x00000000);
+                dodajSliko.setImageBitmap(bitmapImage);
+            }
+        }
+    }
+
     public static class addViewHolder {
         TextView title;
         ImageButton deleteButton;
@@ -187,7 +254,7 @@ public class addRecept_fragment extends Fragment {
                     public void onClick(View v) {
                         boolean isInserted = myDb.insertData(imeRecepta.getText().toString(),
                                 kategorija,arrayList,
-                                opisPostopka.getText().toString());
+                                opisPostopka.getText().toString(), Utils.getBytes(bitmapImage));
                         if(isInserted){
                             //TODO tukaj dodaj prehod na glavni fregment vsi recepti
                             ((MainActivity)getActivity()).openAllRecipesLayout(getView());

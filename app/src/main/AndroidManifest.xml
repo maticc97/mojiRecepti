@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="si.uni.mojirecepti">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +17,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EditRecepie"></activity>
         <activity android:name=".RecipeActivity" />
-        <activity android:name=".addRecipeActivity" />
         <activity android:name=".showNewWindowActivity" />
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
