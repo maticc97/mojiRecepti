@@ -69,6 +69,8 @@ public class addRecept_fragment extends Fragment {
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
+    Bitmap bitmapImage;
+
     @Nullable
     @Override
 
@@ -150,16 +152,16 @@ public class addRecept_fragment extends Fragment {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            addRecipeActivity.addViewHolder mainViewholder = null;
+            addViewHolder mainViewholder = null;
             if(convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
-                addRecipeActivity.addViewHolder viewHolder = new addRecipeActivity.addViewHolder();
+                addViewHolder viewHolder = new addViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.lst_txt);
                 viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.odstranisest);
                 convertView.setTag(viewHolder);
             }
-            mainViewholder = (addRecipeActivity.addViewHolder) convertView.getTag();
+            mainViewholder = (addViewHolder) convertView.getTag();
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -181,7 +183,6 @@ public class addRecept_fragment extends Fragment {
         if(resultCode == Activity.RESULT_OK) {
             if(requestCode == 1000){
                 Uri returnUri = data.getData();
-                Bitmap bitmapImage = null;
                 try {
                     bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
                 } catch (IOException e) {
@@ -253,7 +254,7 @@ public class addRecept_fragment extends Fragment {
                     public void onClick(View v) {
                         boolean isInserted = myDb.insertData(imeRecepta.getText().toString(),
                                 kategorija,arrayList,
-                                opisPostopka.getText().toString());
+                                opisPostopka.getText().toString(), Utils.getBytes(bitmapImage));
                         if(isInserted){
                             //TODO tukaj dodaj prehod na glavni fregment vsi recepti
                             ((MainActivity)getActivity()).openAllRecipesLayout(getView());
