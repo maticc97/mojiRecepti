@@ -26,9 +26,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,10 +54,14 @@ public class addRecept_fragment extends Fragment {
     RadioGroup kategorije;
     RadioButton kat1, kat2, kat3, kat4;
 
+    TextView txt_view;
+
     //TO DO
     String kategorija;
     ImageButton btnShrani;
     DatabaseHelper myDb;
+
+    RelativeLayout rlv;
 
     Integer REQUEST_CAMERA = 1;
     Integer SELECT_FILE = 0;
@@ -79,12 +85,16 @@ public class addRecept_fragment extends Fragment {
         View view =  inflater.inflate(R.layout.activity_add_recipe,container,false);
         myDb = new DatabaseHelper(getContext());
 
+        rlv = view.findViewById(R.id.rel_lv);
+
         imeRecepta = view.findViewById(R.id.imeRecepta);
         kategorije = view.findViewById(R.id.radio_gumbi);
         kat1 = view.findViewById(R.id.kategorijaPredjed);
         kat2 = view.findViewById(R.id.kategorijaGlavna);
         kat3 = view.findViewById(R.id.kategorijaSladica);
         kat4 = view.findViewById(R.id.kategorijaOstalo);
+
+        txt_view=  view.findViewById(R.id.lst_txt);
 
         opisPostopka = view.findViewById(R.id.postopek_polje);
         btnShrani = view.findViewById(R.id.shrani);
@@ -200,14 +210,22 @@ public class addRecept_fragment extends Fragment {
     }
 
     public void dodajSestavino(){
+
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lv.getLayoutParams();
+                if(arrayList.size()!=0){
+                     params.height = lv.getLayoutParams().height*arrayList.size();
+                }
                 String result = napisiSestavino.getText().toString();
                 if(!result.equals("")) {
                     arrayList.add(result);
+                    lv.setLayoutParams(params);
                     adapter.notifyDataSetChanged();
                     napisiSestavino.setText("");
+                    System.out.println(lv.getLayoutParams().height+450);
+
                 }
                 else{
                     Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();

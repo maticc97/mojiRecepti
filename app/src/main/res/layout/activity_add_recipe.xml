@@ -7,7 +7,7 @@
     >
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -153,11 +153,10 @@
             <ListView
                 android:id="@+id/listView_lv"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="10dp"
                 android:layout_below="@id/btnSestavine"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/back"
-                android:scrollbarSize="10dp" />
+                android:background="@drawable/back" />
 
             <TextView
                 android:id="@+id/postopek_text"
@@ -178,7 +177,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/back"
                 android:hint="@string/process_hint"
-                android:lines="3"
+                android:minLines="3"
                 android:padding="10dp" />
 
             <ImageButton
@@ -206,7 +205,7 @@
 
 
         </RelativeLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>
 

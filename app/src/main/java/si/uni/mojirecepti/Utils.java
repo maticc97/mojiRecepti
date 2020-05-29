@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import java.io.ByteArrayOutputStream;
 
 public class Utils {
+
+    //converting into
     public static byte[] getBytes(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,0,stream);
