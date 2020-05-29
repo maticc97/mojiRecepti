@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,8 @@ public class RecipeList_fragment extends Fragment {
         myDb = new DatabaseHelper(getContext());
 
         lvItems = view.findViewById(R.id.lvItems);
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        System.out.println(lvItems);
 
         //search
         EditText search = view.findViewById(R.id.searchFilter);
@@ -68,7 +71,7 @@ public class RecipeList_fragment extends Fragment {
 
     private void addData(String category) {
         //kazalec na vse shranjene recepte v DatabaseHelper je funkcija recipeTitles, ki vrne kazalec na recepte odvisno od kategorije
-        Cursor cursor = myDb.recipeTitles(category);
+        final Cursor cursor = myDb.recipeTitles(category);
 
         if (cursor.getCount() < 0) {
             Toast.makeText(getContext(), "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
@@ -83,6 +86,15 @@ public class RecipeList_fragment extends Fragment {
             //set cursor zato, da je seznam jedi v myListAdapter pravilen, odvisen od kategorije
             ((MyListAdapter) itemsAdapter).setCursor(myDb.recipeTitles(category));
             lvItems.setAdapter(itemsAdapter);
+            System.out.println("Se izvede" + lvItems);
+            lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    cursor.moveToPosition(position);
+                    final String clickedRecipeId = cursor.getString(0);
+                    ((MainActivity)getActivity()).openRecipeLayout(clickedRecipeId);
+                }
+            });
         }
     }
 

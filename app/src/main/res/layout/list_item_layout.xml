@@ -23,7 +23,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_remove_foreground"
+        android:src="@drawable/ic_remove"
         android:background="@drawable/red_background"
         android:layout_alignParentEnd="true" />
 
