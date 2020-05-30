@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -68,9 +69,12 @@ public class Recipe_fragment extends Fragment {
         TextView recipeTitle = view.findViewById(R.id.recipeTitle);
         TextView recipeCategory = view.findViewById(R.id.recipeCategory);
         TextView recipeProcess = view.findViewById(R.id.recipeProcess);
+        ImageView img = view.findViewById(R.id.img);
         recipeTitle.setText(title);
         recipeCategory.setText(category);
         recipeProcess.setText(process);
+        img.setImageURI(imgUri);
+        img.setBackgroundColor(0x00000000);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
