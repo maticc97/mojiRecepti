@@ -41,6 +41,9 @@ public class editRecept_fragment extends Fragment {
     EditText title;
     EditText napisiSestavino;
 
+    int heightpri;
+
+
     //Img URi
     Uri imgUri;
     String imgStrUri;
@@ -62,6 +65,7 @@ public class editRecept_fragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_add_recipe, container, false);
 
         myDb = new DatabaseHelper(getContext());
+
 
 
         dodaj = view.findViewById(R.id.btnSestavine);
@@ -92,6 +96,8 @@ public class editRecept_fragment extends Fragment {
         ostalo = view.findViewById(R.id.kategorijaOstalo);
 
          sestavine = view.findViewById(R.id.listView_lv);
+
+        heightpri = sestavine.getLayoutParams().height;
 
          //
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
@@ -162,7 +168,7 @@ public class editRecept_fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
-                    params.height = sestavine.getLayoutParams().height-155;
+                    params.height = sestavine.getLayoutParams().height-heightpri;
                     dobiSestavine.remove(position);
                     adapter.notifyDataSetChanged();
                 }
@@ -238,7 +244,7 @@ public class editRecept_fragment extends Fragment {
                     napisiSestavino.setText("");
                     if(dobiSestavine.size()!=0){
                         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
-                        params.height = sestavine.getLayoutParams().height+155;
+                        params.height = sestavine.getLayoutParams().height+heightpri;
                     }
                 } else {
                     Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();
