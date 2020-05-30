@@ -77,6 +77,8 @@ public class addRecept_fragment extends Fragment {
     ArrayAdapter<String> adapter1;
     Bitmap bitmapImage;
 
+    Uri returnuri;
+
     @Nullable
     @Override
 
@@ -175,6 +177,8 @@ public class addRecept_fragment extends Fragment {
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lv.getLayoutParams();
+                    params.height = lv.getLayoutParams().height-155;
                     System.out.println(position);
                     System.out.println(arrayList);
                     arrayList.remove(position);
@@ -192,9 +196,9 @@ public class addRecept_fragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == Activity.RESULT_OK) {
             if(requestCode == 1000){
-                Uri returnUri = data.getData();
+                returnuri = data.getData();
                 try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnuri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -215,16 +219,15 @@ public class addRecept_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lv.getLayoutParams();
-                if(arrayList.size()!=0){
-                     params.height = lv.getLayoutParams().height*arrayList.size();
-                }
                 String result = napisiSestavino.getText().toString();
                 if(!result.equals("")) {
                     arrayList.add(result);
                     lv.setLayoutParams(params);
                     adapter.notifyDataSetChanged();
+                    if(arrayList.size()!=0){
+                        params.height = lv.getLayoutParams().height+155;
+                    }
                     napisiSestavino.setText("");
-                    System.out.println(lv.getLayoutParams().height+450);
 
                 }
                 else{
@@ -264,6 +267,7 @@ public class addRecept_fragment extends Fragment {
     }
 
     public void AddData(){
+
         imeRecepta.getText().toString();
         opisPostopka.getText().toString();
         btnShrani.setOnClickListener(
@@ -272,7 +276,7 @@ public class addRecept_fragment extends Fragment {
                     public void onClick(View v) {
                         boolean isInserted = myDb.insertData(imeRecepta.getText().toString(),
                                 kategorija,arrayList,
-                                opisPostopka.getText().toString(), Utils.getBytes(bitmapImage));
+                                opisPostopka.getText().toString(), returnuri.toString());
                         if(isInserted){
                             //TODO tukaj dodaj prehod na glavni fregment vsi recepti
                             ((MainActivity)getActivity()).openAllRecipesLayout(getView());

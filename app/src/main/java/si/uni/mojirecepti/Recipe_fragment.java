@@ -1,6 +1,7 @@
 package si.uni.mojirecepti;
 
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 public class Recipe_fragment extends Fragment {
@@ -28,6 +30,8 @@ public class Recipe_fragment extends Fragment {
     private String process;
     private ImageButton edit;
     private ArrayList<String> data = new ArrayList<String>();
+    private String imgUriStr;
+    private Uri imgUri;
 
     private TextView textView;
 
@@ -96,6 +100,11 @@ public class Recipe_fragment extends Fragment {
             data.add(fixed);
         }
         process = cursor.getString(4);
+
+        //slika URI
+        imgUriStr = cursor.getString(5);
+        imgUri = Uri.parse(imgUriStr);
+
     }
 
     private void goToEdit(){
@@ -106,6 +115,7 @@ public class Recipe_fragment extends Fragment {
         bundle.putString("kategorija",category);
         bundle.putStringArrayList("sestavine",data);
         bundle.putString("postopek",process);
+        bundle.putString("imgUriStr", imgUriStr);
         editRecept_fragment.setArguments(bundle);
         Fragment fragment = new editRecept_fragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

@@ -39,20 +39,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String ime, String kategorija, ArrayList<String> sestavine, String postopek, byte[] image){
+    public boolean insertData(String ime, String kategorija, ArrayList<String> sestavine, String postopek, String uri){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         //key, vsebina
-
-        if(ime.equals("") || kategorija==null || sestavine==null || postopek.equals("")){
+        System.out.println(uri);
+        if(ime.equals("") || kategorija==null || sestavine==null || postopek.equals("") || uri == null){
             return false;
         }
+
         contentValues.put(COL_2, ime);
         contentValues.put(COL_3, kategorija);
         contentValues.put(COL_4, String.valueOf(sestavine));
         contentValues.put(COL_5, postopek);
-        contentValues.put(COL_6, image);
+        contentValues.put(COL_6, uri);
         //vrne -1 če ni okej
         long result = db.insert(TABELA, null, contentValues);
         if(result==-1)
@@ -68,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         System.out.println(sestavine);
 
-        if(imeRecepta.equals("") || kategorija==null|| sestavine.size()<=0 ||postopek.equals("")){
+        if(imeRecepta.equals("") || imeRecepta.equals(" ") || imeRecepta.equals("   ") || kategorija==null|| sestavine.size()<=0 ||postopek.equals("")){
             return false;
         }
         //key, vsebina
