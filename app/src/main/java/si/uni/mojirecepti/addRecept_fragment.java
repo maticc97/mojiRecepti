@@ -79,6 +79,8 @@ public class addRecept_fragment extends Fragment {
 
     Uri returnuri;
 
+    int heightpri;
+
     @Nullable
     @Override
 
@@ -109,6 +111,8 @@ public class addRecept_fragment extends Fragment {
 
         delete = view.findViewById(R.id.odstranisest);
         preklici = view.findViewById(R.id.preklici_btn);
+
+        heightpri = lv.getLayoutParams().height;
 
         arrayList = new ArrayList<String>();
         //adapter1 = new ArrayAdapter<String>(addRecipeActivity.this, R.layout.list_item_layout, R.id.lst_txt, arrayList);
@@ -178,7 +182,7 @@ public class addRecept_fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lv.getLayoutParams();
-                    params.height = lv.getLayoutParams().height-155;
+                    params.height = lv.getLayoutParams().height-heightpri;
                     System.out.println(position);
                     System.out.println(arrayList);
                     arrayList.remove(position);
@@ -225,7 +229,7 @@ public class addRecept_fragment extends Fragment {
                     lv.setLayoutParams(params);
                     adapter.notifyDataSetChanged();
                     if(arrayList.size()!=0){
-                        params.height = lv.getLayoutParams().height+155;
+                        params.height = lv.getLayoutParams().height + heightpri;
                     }
                     napisiSestavino.setText("");
 
