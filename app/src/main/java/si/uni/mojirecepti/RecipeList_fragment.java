@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,14 +36,14 @@ public class RecipeList_fragment extends Fragment {
     private ListView lvItems;
     private ArrayList<String> data = new ArrayList<String>();
     private String recipeCategory;
+    private List<String> imgUriStr = new ArrayList<String>();
+    private Uri imgUri;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.recipe_list,container,false);
         myDb = new DatabaseHelper(getContext());
 
         lvItems = view.findViewById(R.id.lvItems);
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-        System.out.println(lvItems);
 
         //search
         EditText search = view.findViewById(R.id.searchFilter);
@@ -80,13 +82,14 @@ public class RecipeList_fragment extends Fragment {
             while (cursor.moveToNext()) {
                 //v seznam vseh jedi (data) se doda ime jedi -> stolpec 1 je ime, stolpec 0 je id
                 data.add(cursor.getString(1));
+                imgUriStr.add(cursor.getString(2));
             }
 
             itemsAdapter = new MyListAdapter(getContext(), R.layout.list_item, data);
             //set cursor zato, da je seznam jedi v myListAdapter pravilen, odvisen od kategorije
             ((MyListAdapter) itemsAdapter).setCursor(myDb.recipeTitles(category));
             lvItems.setAdapter(itemsAdapter);
-            System.out.println("Se izvede" + lvItems);
+
             lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,9 +124,13 @@ public class RecipeList_fragment extends Fragment {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
+                viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.moreButton = (ImageButton) convertView.findViewById(R.id.show_more_btn);
                 viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.delete_btn);
+                imgUri = Uri.parse(imgUriStr.get(position));
+                viewHolder.image.setImageURI(imgUri);
+                viewHolder.image.setBackgroundColor(0x00000000);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
@@ -148,6 +155,7 @@ public class RecipeList_fragment extends Fragment {
                             final String id = cursor.getString(0);
                             myDb.deleteRecipe(id);
                             data.remove(position);
+                            imgUriStr.remove(position);
                             itemsAdapter.notifyDataSetChanged();
                         }
                     });
@@ -168,6 +176,7 @@ public class RecipeList_fragment extends Fragment {
     }
 
     public static class ViewHolder {
+        ImageView image;
          TextView title;
          ImageButton moreButton;
          ImageButton deleteButton;
