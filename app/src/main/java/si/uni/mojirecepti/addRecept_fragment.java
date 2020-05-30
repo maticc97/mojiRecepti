@@ -77,7 +77,7 @@ public class addRecept_fragment extends Fragment {
     ArrayAdapter<String> adapter1;
     Bitmap bitmapImage;
 
-    Uri returnuri;
+    Uri returnuri = Uri.parse("android.resource://si.uni.mojirecepti/drawable/main_dish");
 
     @Nullable
     @Override
