@@ -2,6 +2,7 @@ package si.uni.mojirecepti;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +41,13 @@ public class editRecept_fragment extends Fragment {
     EditText title;
     EditText napisiSestavino;
 
-    ImageButton dodaj;
+    //Img URi
+    Uri imgUri;
+    String imgStrUri;
 
+    ImageView dodajsliko;
+    ImageButton dodaj;
+    ListView sestavine;
     Recipe_fragment recipe_fragment;
 
     ImageButton preklici, posodobi;
@@ -67,6 +75,13 @@ public class editRecept_fragment extends Fragment {
         dobiIme = getArguments().getString("imeRecepta");
         dobiSestavine = getArguments().getStringArrayList("sestavine");
 
+        dodajsliko = view.findViewById(R.id.dodajSliko);
+        imgStrUri = getArguments().getString("imgUriStr");
+
+        imgUri = Uri.parse(imgStrUri);
+        dodajsliko.setImageURI(imgUri);
+        dodajsliko.setBackgroundColor(0x00000000);
+
         novRecept = view.findViewById(R.id.imeRecepta);
         kategorija = dobiKategorijo;
 
@@ -76,8 +91,13 @@ public class editRecept_fragment extends Fragment {
         sladica = view.findViewById(R.id.kategorijaSladica);
         ostalo = view.findViewById(R.id.kategorijaOstalo);
 
-        ListView sestavine = view.findViewById(R.id.listView_lv);
+         sestavine = view.findViewById(R.id.listView_lv);
 
+         //
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
+        params.height = sestavine.getLayoutParams().height+155*dobiSestavine.size();
+
+        System.out.println(dobiSestavine.size());
         adapter = new MyAdapter(getContext(), R.layout.list_item_layout, dobiSestavine);
         sestavine.setAdapter(adapter);
 
@@ -141,6 +161,8 @@ public class editRecept_fragment extends Fragment {
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
+                    params.height = sestavine.getLayoutParams().height-155;
                     dobiSestavine.remove(position);
                     adapter.notifyDataSetChanged();
                 }
@@ -214,6 +236,10 @@ public class editRecept_fragment extends Fragment {
                     dobiSestavine.add(result);
                     adapter.notifyDataSetChanged();
                     napisiSestavino.setText("");
+                    if(dobiSestavine.size()!=0){
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
+                        params.height = sestavine.getLayoutParams().height+155;
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();
                 }

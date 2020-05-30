@@ -26,9 +26,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,10 +54,14 @@ public class addRecept_fragment extends Fragment {
     RadioGroup kategorije;
     RadioButton kat1, kat2, kat3, kat4;
 
+    TextView txt_view;
+
     //TO DO
     String kategorija;
     ImageButton btnShrani;
     DatabaseHelper myDb;
+
+    RelativeLayout rlv;
 
     Integer REQUEST_CAMERA = 1;
     Integer SELECT_FILE = 0;
@@ -71,6 +77,8 @@ public class addRecept_fragment extends Fragment {
     ArrayAdapter<String> adapter1;
     Bitmap bitmapImage;
 
+    Uri returnuri;
+
     @Nullable
     @Override
 
@@ -79,12 +87,16 @@ public class addRecept_fragment extends Fragment {
         View view =  inflater.inflate(R.layout.activity_add_recipe,container,false);
         myDb = new DatabaseHelper(getContext());
 
+        rlv = view.findViewById(R.id.rel_lv);
+
         imeRecepta = view.findViewById(R.id.imeRecepta);
         kategorije = view.findViewById(R.id.radio_gumbi);
         kat1 = view.findViewById(R.id.kategorijaPredjed);
         kat2 = view.findViewById(R.id.kategorijaGlavna);
         kat3 = view.findViewById(R.id.kategorijaSladica);
         kat4 = view.findViewById(R.id.kategorijaOstalo);
+
+        txt_view=  view.findViewById(R.id.lst_txt);
 
         opisPostopka = view.findViewById(R.id.postopek_polje);
         btnShrani = view.findViewById(R.id.shrani);
@@ -165,6 +177,8 @@ public class addRecept_fragment extends Fragment {
             mainViewholder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lv.getLayoutParams();
+                    params.height = lv.getLayoutParams().height-155;
                     System.out.println(position);
                     System.out.println(arrayList);
                     arrayList.remove(position);
@@ -182,9 +196,9 @@ public class addRecept_fragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == Activity.RESULT_OK) {
             if(requestCode == 1000){
-                Uri returnUri = data.getData();
+                returnuri = data.getData();
                 try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnuri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -200,14 +214,21 @@ public class addRecept_fragment extends Fragment {
     }
 
     public void dodajSestavino(){
+
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lv.getLayoutParams();
                 String result = napisiSestavino.getText().toString();
                 if(!result.equals("")) {
                     arrayList.add(result);
+                    lv.setLayoutParams(params);
                     adapter.notifyDataSetChanged();
+                    if(arrayList.size()!=0){
+                        params.height = lv.getLayoutParams().height+155;
+                    }
                     napisiSestavino.setText("");
+
                 }
                 else{
                     Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();
@@ -246,6 +267,7 @@ public class addRecept_fragment extends Fragment {
     }
 
     public void AddData(){
+
         imeRecepta.getText().toString();
         opisPostopka.getText().toString();
         btnShrani.setOnClickListener(
@@ -254,7 +276,7 @@ public class addRecept_fragment extends Fragment {
                     public void onClick(View v) {
                         boolean isInserted = myDb.insertData(imeRecepta.getText().toString(),
                                 kategorija,arrayList,
-                                opisPostopka.getText().toString(), Utils.getBytes(bitmapImage));
+                                opisPostopka.getText().toString(), returnuri.toString());
                         if(isInserted){
                             //TODO tukaj dodaj prehod na glavni fregment vsi recepti
                             ((MainActivity)getActivity()).openAllRecipesLayout(getView());
