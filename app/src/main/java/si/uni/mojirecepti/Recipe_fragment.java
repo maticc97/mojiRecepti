@@ -1,8 +1,10 @@
 package si.uni.mojirecepti;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -108,6 +111,11 @@ public class Recipe_fragment extends Fragment {
         //slika URI
         imgUriStr = cursor.getString(5);
         imgUri = Uri.parse(imgUriStr);
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imgUri);
+        } catch (IOException e) {
+            imgUri = Uri.parse("android.resource://si.uni.mojirecepti/drawable/main_dish");
+        }
 
     }
 

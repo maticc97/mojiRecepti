@@ -3,14 +3,19 @@ package si.uni.mojirecepti;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,6 +136,11 @@ public class RecipeList_fragment extends Fragment {
                 viewHolder.moreButton = (ImageButton) convertView.findViewById(R.id.show_more_btn);
                 viewHolder.deleteButton = (ImageButton) convertView.findViewById(R.id.delete_btn);
                 imgUri = Uri.parse(imgUriStr.get(position));
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imgUri);
+                } catch (IOException e) {
+                    imgUri = Uri.parse("android.resource://si.uni.mojirecepti/drawable/main_dish");
+                }
                 viewHolder.image.setImageURI(imgUri);
                 viewHolder.image.setBackgroundColor(0x00000000);
                 convertView.setTag(viewHolder);

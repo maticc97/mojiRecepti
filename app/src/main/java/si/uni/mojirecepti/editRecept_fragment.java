@@ -2,8 +2,10 @@ package si.uni.mojirecepti;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +82,11 @@ public class editRecept_fragment extends Fragment {
         imgStrUri = getArguments().getString("imgUriStr");
 
         imgUri = Uri.parse(imgStrUri);
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imgUri);
+        } catch (IOException e) {
+            imgUri = Uri.parse("android.resource://si.uni.mojirecepti/drawable/main_dish");
+        }
         dodajsliko.setImageURI(imgUri);
         dodajsliko.setBackgroundColor(0x00000000);
 
