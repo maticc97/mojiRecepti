@@ -189,9 +189,9 @@ public class editRecept_fragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == Activity.RESULT_OK) {
             if(requestCode == 1000){
-                returnuri = data.getData();
+                imgUri = data.getData();
                 try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnuri);
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imgUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -279,7 +279,7 @@ public class editRecept_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 recipe_fragment = new Recipe_fragment();
-                boolean isUpdated = myDb.updateItem(id, novRecept.getText().toString(), kategorija, postopekPolje.getText().toString(), dobiSestavine, returnuri.toString());
+                boolean isUpdated = myDb.updateItem(id, novRecept.getText().toString(), kategorija, postopekPolje.getText().toString(), dobiSestavine, imgUri.toString());
                 if (isUpdated) {
                     Toast.makeText(getContext(), "Recept uspešno posodobljen", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
