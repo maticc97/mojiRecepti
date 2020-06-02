@@ -88,10 +88,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor recipeTitles(String category) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select ID, IME from " + TABELA;
+        String query = "Select ID, IME, SLIKA from " + TABELA;
 
         if (!category.equals("all")) {
-            query = "Select ID, IME from "+TABELA+" where KATEGORIJA = '"+category+"'";
+            query = "Select ID, IME, SLIKA from "+TABELA+" where KATEGORIJA = '"+category+"'";
         }
 
         Cursor cursor = db.rawQuery(query, null);

@@ -95,7 +95,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myDb = new DatabaseHelper(this);
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
+        if (savedInstanceState == null) {
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
+        }
 
         delete = findViewById(R.id.odstranisest);
         preklici = findViewById(R.id.preklici_btn);

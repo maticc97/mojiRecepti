@@ -13,6 +13,20 @@
         android:textStyle="bold"
         />
 
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="122dp"
+        android:layout_height="110dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/grey"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp" />
+
     <TextView
         android:id="@+id/recipeCategory"
         android:layout_width="wrap_content"
@@ -36,10 +50,8 @@
     <ListView
         android:id="@+id/ingredientsList"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ingredientsTitle"
-        android:background="@drawable/back"
-        android:scrollbarSize="10dp"
         android:layout_marginTop="10dp"
         />
 
@@ -58,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="20sp"
         android:text="TextView"
         android:layout_below="@id/processTitle"
         />
@@ -67,7 +80,9 @@
         style="@style/btn"
         android:background="@drawable/orange_background"
         android:src="@drawable/ic_edit"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         />
 
@@ -77,7 +92,7 @@
         android:background="@drawable/orange_background"
         android:src="@drawable/ic_back"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="openAllRecipesLayout"/>
+        android:layout_toLeftOf="@id/editButton"
+        android:onClick="openAllRecipesLayout"
+        android:layout_toStartOf="@id/editButton" />
 </RelativeLayout>
