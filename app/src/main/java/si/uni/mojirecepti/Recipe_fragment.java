@@ -111,6 +111,7 @@ public class Recipe_fragment extends Fragment {
         //slika URI
         imgUriStr = cursor.getString(5);
         imgUri = Uri.parse(imgUriStr);
+
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imgUri);
         } catch (IOException e) {

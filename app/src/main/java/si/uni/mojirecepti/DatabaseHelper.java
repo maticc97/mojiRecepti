@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-//tukaj ustvarimo bazo z DATABASE_NAME imenom
+    //tukaj ustvarimo bazo z DATABASE_NAME imenom
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         SQLiteDatabase db = this.getWritableDatabase();
@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //Item is a class representing any item with id, name and description
-    public boolean updateItem(String id, String imeRecepta, String kategorija, String postopek, ArrayList<String> sestavine) {
+    public boolean updateItem(String id, String imeRecepta, String kategorija, String postopek, ArrayList<String> sestavine, String uri) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         System.out.println(sestavine);
@@ -79,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_3, kategorija);
             contentValues.put(COL_4, String.valueOf(sestavine));
             contentValues.put(COL_5, postopek);
+            contentValues.put(COL_6, uri);
             //vrne -1 če ni okej
 
             db.update(TABELA, contentValues, "ID = ?", new String[]{id});

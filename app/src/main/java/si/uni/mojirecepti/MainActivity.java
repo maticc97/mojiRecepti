@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
-
+    boolean doubleBackToExitPressedOnce = false;
 
     AlertDialog.Builder builder;
 
@@ -105,10 +106,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     @Override
     public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeList_fragment()).commit();
         drawerLayout.closeDrawers();
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     //to je sam primer kako daš funkcije na gumb v meniju, samo vstaviš notri v case - vsi casi so dodani
