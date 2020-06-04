@@ -83,13 +83,17 @@ public class RecipeList_fragment extends Fragment {
         final Cursor cursor = myDb.recipeTitles(category);
 
         if (cursor.getCount() < 0) {
-            Toast.makeText(getContext(), "Nimate shranjenih receptov", Toast.LENGTH_SHORT).show();
+
         } else {
             //se premikamo po en kazalec naprej
             while (cursor.moveToNext()) {
                 //v seznam vseh jedi (data) se doda ime jedi -> stolpec 1 je ime, stolpec 0 je id
                 data.add(cursor.getString(1));
                 imgUriStr.add(cursor.getString(2));
+            }
+
+            if (data.isEmpty()) {
+                Toast.makeText(getContext(), getString(R.string.recipe_list_empty), Toast.LENGTH_SHORT).show();
             }
 
             itemsAdapter = new MyListAdapter(getContext(), R.layout.list_item, data);
@@ -159,9 +163,9 @@ public class RecipeList_fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setTitle("OPOZORILO!");
-                    builder.setMessage("Ali ste prepričani, da želite izbrisati recept?");
-                    builder.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                    builder.setTitle(getString(R.string.warning_title));
+                    builder.setMessage(getString(R.string.delete_warning_text));
+                    builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             cursor.moveToPosition(position);
                             final String id = cursor.getString(0);
@@ -171,7 +175,7 @@ public class RecipeList_fragment extends Fragment {
                             itemsAdapter.notifyDataSetChanged();
                         }
                     });
-                    builder.setNegativeButton("NE", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // Do nothing

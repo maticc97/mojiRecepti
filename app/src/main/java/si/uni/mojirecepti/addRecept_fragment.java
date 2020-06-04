@@ -235,7 +235,7 @@ public class addRecept_fragment extends Fragment {
 
                 }
                 else{
-                    Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.insert_ingredient), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -284,10 +284,10 @@ public class addRecept_fragment extends Fragment {
                         if(isInserted){
                             //TODO tukaj dodaj prehod na glavni fregment vsi recepti
                             ((MainActivity)getActivity()).openAllRecipesLayout(getView());
-                            Toast.makeText(getActivity(), "Recept uspešno dodan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getString(R.string.recipe_added), Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Toast.makeText(getActivity(), "Prosimo vpiši vse podatke", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getString(R.string.insert_all_data), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -300,7 +300,7 @@ public class addRecept_fragment extends Fragment {
             public void onClick(View v) {
                 //TODO prehod na fragment main
                 ((MainActivity)getActivity()).openAllRecipesLayout(getView());
-                Toast.makeText(getActivity(), "Dodajanje recepta preklicano", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.recipe_canceled), Toast.LENGTH_SHORT).show();
             }
         });
     }

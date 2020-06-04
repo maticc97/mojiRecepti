@@ -89,27 +89,6 @@
             android:padding="10dp"
             />
 
-        <!--ImageButton
-            android:id="@+id/editButton"
-            style="@style/btn"
-            android:background="@drawable/orange_background"
-            android:src="@drawable/ic_edit"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="15dp"
-            />
-
-        <ImageButton
-            android:id="@+id/back"
-            style="@style/btn"
-            android:background="@drawable/orange_background"
-            android:src="@drawable/ic_back"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/editButton"
-            android:onClick="openAllRecipesLayout"
-            android:layout_toStartOf="@id/editButton" /-->
-
         </RelativeLayout>
 
     </ScrollView>

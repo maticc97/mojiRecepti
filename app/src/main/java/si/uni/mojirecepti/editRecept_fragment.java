@@ -82,7 +82,7 @@ public class editRecept_fragment extends Fragment {
         dodaj = view.findViewById(R.id.btnSestavine);
         napisiSestavino = view.findViewById(R.id.sestavina_add);
         dogodek = view.findViewById(R.id.naslovna_vrstica);
-        dogodek.setText("Uredi recept");
+        dogodek.setText(getString(R.string.edit_recipe));
         id = getArguments().getString("id");
         dobiIme = getArguments().getString("imeRecepta");
         dobiKategorijo = getArguments().getString("kategorija");
@@ -281,12 +281,12 @@ public class editRecept_fragment extends Fragment {
                 recipe_fragment = new Recipe_fragment();
                 boolean isUpdated = myDb.updateItem(id, novRecept.getText().toString(), kategorija, postopekPolje.getText().toString(), dobiSestavine, imgUri.toString());
                 if (isUpdated) {
-                    Toast.makeText(getContext(), "Recept uspešno posodobljen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.recipe_updated), Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, recipe_fragment).commit();
                 } else {
-                    Toast.makeText(getContext(), "Prosimo zapolnite vsa polja", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -306,7 +306,7 @@ public class editRecept_fragment extends Fragment {
                         params.height = sestavine.getLayoutParams().height+heightpri;
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Vnesite sestavino", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.insert_ingredient), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -317,7 +317,7 @@ public class editRecept_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).openAllRecipesLayout(getView());
-                Toast.makeText(getActivity(), "Recept ni bil posodobljen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.recipe_not_updated), Toast.LENGTH_SHORT).show();
             }
         });
     }

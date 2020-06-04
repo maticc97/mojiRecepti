@@ -27,5 +27,17 @@
     <string name="about_us_title">O Nas - kdo smo?</string>
     <string name="o_nas">O Nas - kdo smo?</string>
     <string name="naslov_recepta">Naslov recepta</string>
+    <string name="o_nas_tekst">Aplikacija mojiRecepti je nastala v okviru laboratorijskih vaj pri predmetu Terminalske naprave in uporabniški vmesniki, ki se izvaja v 3. letniku študija multimedije na Fakulteti za elektrotehniko.</string>
+    <string name="developers">Razvijalci</string>
+    <string name="jaka">Jaka Bezovšek</string>
+    <string name="matic">Matic Lulik</string>
+    <string name="date">Ljubljana, 2020</string>
+    <string name="insert_ingredient">Vnesite sestavino</string>
+    <string name="insert_all_data">Prosimo vpišite vse podatke</string>
+    <string name="edit_recipe">Uredi recept</string>
+    <string name="recipe_updated">Recept uspešno posodobljen</string>
+    <string name="recipe_not_updated">Recept ni bil posodobljen</string>
+    <string name="fill_all_fields">Prosimo izpolnite vsa polja</string>
+    <string name="recipe_list_empty">Nimate shranjenih receptov za izbrano kategorijo</string>
 
 </resources>
