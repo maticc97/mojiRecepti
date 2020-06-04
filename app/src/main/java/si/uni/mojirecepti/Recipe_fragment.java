@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class Recipe_fragment extends Fragment {
     private ArrayList<String> data = new ArrayList<String>();
     private String imgUriStr;
     private Uri imgUri;
+    private int heightpri;
 
     private TextView textView;
 
@@ -61,9 +63,11 @@ public class Recipe_fragment extends Fragment {
 
 
         ListView lvItems = view.findViewById(R.id.ingredientsList);
-
+        heightpri = lvItems.getLayoutParams().height;
         //funkcija ki pridobi potrebne podatke iz baze
         getData();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lvItems.getLayoutParams();
+        params.height = lvItems.getLayoutParams().height*(data.size()+1);
 
         //v seznam sestavin dodamo sestavine, sestavine se nastavijo v data znotraj funkcije getData(), z ukazom data.add(fixed)
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, data);
