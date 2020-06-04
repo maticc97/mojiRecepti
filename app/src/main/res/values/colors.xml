@@ -13,4 +13,6 @@
     <color name="addBtnStroke">#307E7A</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#bdbdbd</color>
+    <color name="blue_add">#0095ff</color>
+    <color name="red_delete">#ff2313</color>
 </resources>
