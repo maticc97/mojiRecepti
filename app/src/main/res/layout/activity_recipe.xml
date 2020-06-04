@@ -1,98 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:padding="10dp">
+    >
 
-    <TextView
-        android:id="@+id/recipeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="122dp"
-        android:layout_height="110dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/grey"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="10dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
 
-    <TextView
-        android:id="@+id/recipeCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/recipeTitle"/>
+        <TextView
+            android:id="@+id/recipeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            />
 
-    <TextView
-        android:id="@+id/ingredientsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/ingredients"
-        android:textSize="17dp"
-        android:textStyle="bold"
-        android:layout_below="@id/recipeCategory"/>
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="122dp"
+            android:layout_height="110dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/grey"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp" />
 
-    <ListView
-        android:id="@+id/ingredientsList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ingredientsTitle"
-        android:layout_marginTop="10dp"
-        />
+        <TextView
+            android:id="@+id/recipeCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_below="@id/recipeTitle"/>
 
-    <TextView
-        android:id="@+id/processTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/process"
-        android:textSize="17dp"
-        android:textStyle="bold"
-        android:layout_below="@id/ingredientsList"/>
+        <TextView
+            android:id="@+id/ingredientsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/ingredients"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_below="@id/recipeCategory"/>
 
-    <TextView
-        android:id="@+id/recipeProcess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:text="TextView"
-        android:layout_below="@id/processTitle"
-        />
+        <ListView
+            android:id="@+id/ingredientsList"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@id/ingredientsTitle"
+            android:layout_marginTop="10dp"
+            />
 
-    <ImageButton
-        android:id="@+id/editButton"
-        style="@style/btn"
-        android:background="@drawable/orange_background"
-        android:src="@drawable/ic_edit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        />
+        <TextView
+            android:id="@+id/processTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/process"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_below="@id/ingredientsList"/>
 
-    <ImageButton
-        android:id="@+id/back"
-        style="@style/btn"
-        android:background="@drawable/orange_background"
-        android:src="@drawable/ic_back"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/editButton"
-        android:onClick="openAllRecipesLayout"
-        android:layout_toStartOf="@id/editButton" />
+        <TextView
+            android:id="@+id/recipeProcess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="70dp"
+            android:textSize="20sp"
+            android:background="@drawable/back"
+            android:text="TextView"
+            android:minLines="3"
+            android:layout_below="@id/processTitle"
+            android:padding="10dp"
+            />
+
+        <!--ImageButton
+            android:id="@+id/editButton"
+            style="@style/btn"
+            android:background="@drawable/orange_background"
+            android:src="@drawable/ic_edit"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            />
+
+        <ImageButton
+            android:id="@+id/back"
+            style="@style/btn"
+            android:background="@drawable/orange_background"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/editButton"
+            android:onClick="openAllRecipesLayout"
+            android:layout_toStartOf="@id/editButton" /-->
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/editButton"
+            style="@style/btn"
+            android:background="@drawable/orange_background"
+            android:src="@drawable/ic_edit"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            />
+
+        <ImageButton
+            android:id="@+id/back"
+            style="@style/btn"
+            android:background="@drawable/orange_background"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/editButton"
+            android:onClick="openAllRecipesLayout"
+            android:layout_toStartOf="@id/editButton" />
+    </RelativeLayout>
 </RelativeLayout>

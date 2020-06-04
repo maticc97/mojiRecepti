@@ -15,8 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditRecepie"></activity>
-        <activity android:name=".RecipeActivity" />
         <activity android:name=".showNewWindowActivity" />
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

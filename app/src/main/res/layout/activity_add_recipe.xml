@@ -7,7 +7,7 @@
     >
 
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+
             >
 
             <TextView
@@ -23,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/nov_recept"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="40dp"/>
 
             <TextView
                 android:id="@+id/ime_jedi_label"
@@ -31,14 +33,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/naslov_recepta"
                 android:textSize="17sp"
-                android:layout_above="@id/imeRecepta"
+                android:layout_below="@id/naslovna_vrstica"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/imeRecepta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dodajSliko"
+                android:layout_below="@id/ime_jedi_label"
                 android:ems="10"
                 android:hint=" Vnesi ime recepta"
                 android:inputType="textPersonName"
@@ -55,18 +57,18 @@
                 android:layout_marginBottom="5dp"
                 android:background="@color/grey"/>
 
-            <ImageButton
-                android:id="@+id/button_add_pic"
-                style="@style/btn"
-                android:layout_below="@id/dodajSliko"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/green_background"
-                android:src="@drawable/ic_add" />
 
+            <ImageButton
+            android:id="@+id/button_add_pic"
+            style="@style/btn"
+            android:layout_below="@id/dodajSliko"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/green_background"
+            android:src="@drawable/ic_photo_foreground" />
 
             <TextView
                 android:id="@+id/izberi_kategorijo"
@@ -132,7 +134,7 @@
 
             <ImageButton
                 android:id="@+id/btnSestavine"
-                style="@style/btn"
+                style="@style/btn_2"
                 android:layout_below="@id/sestavine_text"
                 android:layout_toEndOf="@id/sestavina_add"
                 android:layout_toRightOf="@id/sestavina_add"
@@ -155,7 +157,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/btnSestavine"
-                android:layout_marginBottom="20dp"
                 />
 
             <TextView
@@ -174,38 +175,41 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/postopek_text"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="70dp"
                 android:background="@drawable/back"
                 android:hint="@string/process_hint"
                 android:minLines="3"
                 android:padding="10dp" />
 
-            <ImageButton
-                android:id="@+id/preklici_btn"
-                style="@style/btn"
-                android:layout_below="@id/postopek_polje"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/red_background"
-                android:onClick="onCancelButtonClick"
-                android:src="@drawable/ic_close" />
-
-            <ImageButton
-                android:id="@+id/shrani"
-                android:layout_height="50dp"
-                android:layout_width="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="50dp"
-                android:layout_below="@id/postopek_polje"
-                android:layout_toStartOf="@id/preklici_btn"
-                android:layout_toLeftOf="@id/preklici_btn"
-                android:background="@drawable/green_background"
-                android:src="@drawable/ic_save" />
-
-
         </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+
+    <ImageButton
+        android:id="@+id/preklici_btn"
+        style="@style/btn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/red_background"
+        android:onClick="onCancelButtonClick"
+        android:src="@drawable/ic_close" />
+
+    <ImageButton
+        android:id="@+id/shrani"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toStartOf="@id/preklici_btn"
+        android:layout_toLeftOf="@id/preklici_btn"
+        android:background="@drawable/green_background"
+        android:src="@drawable/ic_save" />
+    </RelativeLayout>
 
 </RelativeLayout>
 

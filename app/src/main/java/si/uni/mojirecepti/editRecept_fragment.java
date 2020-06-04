@@ -1,7 +1,10 @@
 package si.uni.mojirecepti;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -51,13 +55,17 @@ public class editRecept_fragment extends Fragment {
     Uri imgUri;
     String imgStrUri;
 
+    ImageView slikaPlaceholder;
+    Bitmap bitmapImage;
     ImageView dodajsliko;
-    ImageButton dodaj;
+    ImageButton dodaj, capturePhoto;
     ListView sestavine;
     Recipe_fragment recipe_fragment;
 
     ImageButton preklici, posodobi;
     private TextView dogodek;
+
+    Uri returnuri;
 
     private RadioButton predjed, glavna_jed, sladica, ostalo;
 
@@ -83,6 +91,7 @@ public class editRecept_fragment extends Fragment {
         dobiSestavine = getArguments().getStringArrayList("sestavine");
 
         dodajsliko = view.findViewById(R.id.dodajSliko);
+        capturePhoto = view.findViewById(R.id.button_add_pic);
         imgStrUri = getArguments().getString("imgUriStr");
 
         imgUri = Uri.parse(imgStrUri);
@@ -109,7 +118,7 @@ public class editRecept_fragment extends Fragment {
 
          //
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
-        params.height = sestavine.getLayoutParams().height+155*dobiSestavine.size();
+        params.height = sestavine.getLayoutParams().height*(dobiSestavine.size()+1);
 
         System.out.println(dobiSestavine.size());
         adapter = new MyAdapter(getContext(), R.layout.list_item_layout, dobiSestavine);
@@ -146,7 +155,49 @@ public class editRecept_fragment extends Fragment {
         preklici();
         dodajSestavino();
 
+        capturePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            2000);
+                }
+                else {
+                    startGallery();
+                }
+            }
+        });
+
+        Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
         return view;
+    }
+
+    private void startGallery() {
+        Intent cameraIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        cameraIntent.setType("image/*");
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, 1000);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode == 1000){
+                imgUri = data.getData();
+                try {
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imgUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                dodajsliko.setImageBitmap(bitmapImage);
+            }
+        }
     }
 
 
@@ -228,7 +279,7 @@ public class editRecept_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 recipe_fragment = new Recipe_fragment();
-                boolean isUpdated = myDb.updateItem(id, novRecept.getText().toString(), kategorija, postopekPolje.getText().toString(), dobiSestavine);
+                boolean isUpdated = myDb.updateItem(id, novRecept.getText().toString(), kategorija, postopekPolje.getText().toString(), dobiSestavine, imgUri.toString());
                 if (isUpdated) {
                     Toast.makeText(getContext(), "Recept uspešno posodobljen", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
