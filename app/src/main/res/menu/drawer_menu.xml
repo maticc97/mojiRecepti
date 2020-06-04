@@ -15,7 +15,7 @@
         <item
             android:id="@+id/glavne_jedi_MenuItem"
             android:title="@string/main_dishes"
-            android:icon="@drawable/main_dish"/>
+            android:icon="@drawable/chicken"/>
         <item
             android:id="@+id/sladice_menuItem"
             android:title="@string/deserts"
