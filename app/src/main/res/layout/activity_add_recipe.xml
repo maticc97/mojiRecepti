@@ -6,33 +6,6 @@
     android:layout_height="wrap_content"
     >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
-
-        <ImageButton
-            android:id="@+id/preklici_btn"
-            style="@style/btn"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/red_background"
-            android:onClick="onCancelButtonClick"
-            android:src="@drawable/ic_close" />
-
-        <ImageButton
-            android:id="@+id/shrani"
-            android:layout_height="50dp"
-            android:layout_width="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="50dp"
-            android:layout_toStartOf="@id/preklici_btn"
-            android:layout_toLeftOf="@id/preklici_btn"
-            android:background="@drawable/green_background"
-            android:src="@drawable/ic_save" />
-
-    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -206,6 +179,29 @@
                 android:hint="@string/process_hint"
                 android:minLines="3"
                 android:padding="10dp" />
+
+            <ImageButton
+                android:id="@+id/preklici_btn"
+                style="@style/btn"
+                android:layout_below="@id/postopek_polje"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/red_background"
+                android:onClick="onCancelButtonClick"
+                android:src="@drawable/ic_close" />
+
+            <ImageButton
+                android:id="@+id/shrani"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="50dp"
+                android:layout_below="@id/postopek_polje"
+                android:layout_toStartOf="@id/preklici_btn"
+                android:layout_toLeftOf="@id/preklici_btn"
+                android:background="@drawable/green_background"
+                android:src="@drawable/ic_save" />
 
 
         </RelativeLayout>

@@ -118,7 +118,7 @@ public class editRecept_fragment extends Fragment {
 
          //
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sestavine.getLayoutParams();
-        params.height = sestavine.getLayoutParams().height+155*dobiSestavine.size();
+        params.height = sestavine.getLayoutParams().height*(dobiSestavine.size()+1);
 
         System.out.println(dobiSestavine.size());
         adapter = new MyAdapter(getContext(), R.layout.list_item_layout, dobiSestavine);
