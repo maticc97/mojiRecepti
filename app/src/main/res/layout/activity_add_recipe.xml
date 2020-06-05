@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ime_jedi_label"
                 android:ems="10"
-                android:hint=" Vnesi ime recepta"
+                android:hint="@string/recipe_name_hint"
                 android:inputType="textPersonName"
                 />
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imeRecepta"
                 android:layout_marginTop="20dp"
-                android:text="Izberi kategorijo"
+                android:text="@string/choose_category"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
